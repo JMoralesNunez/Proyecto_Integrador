@@ -18,11 +18,11 @@ const pool = new Pool({
 //upload clientes funcional trabajando al dia con postman :)
 
     app.post('/upload_client', async (req, res) => {
-    const { full_name, phone, address } = req.body;
+    const {id_client, full_name, phone, address } = req.body;
     try {
         const result = await pool.query(
-        'INSERT INTO clients (full_name, phone, address) VALUES ($1, $2, $3) RETURNING *',
-        [full_name, phone, address]
+        'INSERT INTO clients (id_client, full_name, phone, address) VALUES ($1, $2, $3, $4) RETURNING *',
+        [id_client, full_name, phone, address]
         );
         res.status(201).json(result.rows[0]);
     } catch (error) {
@@ -91,6 +91,6 @@ app.get("/products", async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log('Servidor corriendo en http://localhost:3000');
+app.listen(3001, () => {
+  console.log('Servidor corriendo en http://localhost:3001');
 });
