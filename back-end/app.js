@@ -5,15 +5,20 @@ require('dotenv').config();
 const pool = require('./db'); 
 
 const clientsRouter = require('./routes/clients');
+const productsRouter = require('./routes/products');
+const rest_tablesRouter = require('./routes/rest_tables');
+
 
 const app = express();
-const app_port = process.env.APP_PORT || 3000
+const app_port = process.env.APP_PORT || 3001
 
 app.use(cors());
 app.use(express.json());
 
 
 app.use('/clients', clientsRouter);
+app.use('/products', productsRouter);
+app.use('/rest_tables', rest_tablesRouter);
 
 app.get('/', async (req, res) => {
     try {

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const rest_tablesController = require('../controllers/products');
+const rest_tablesController = require('../controllers/rest_tables');
 
 router.get('/', rest_tablesController.getAllTables);
 router.get('/:id', rest_tablesController.getTableById);
