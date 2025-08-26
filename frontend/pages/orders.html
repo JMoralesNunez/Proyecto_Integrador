@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/ea4c7975d5.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="/frontend/styles/styles.css" />
+  </head>
+  <body>
+    <div class="index-container">
+      <aside>
+        <h2 class="aside-title">App name</h2>
+        <div class="menu gap-2">
+          <h6 class="menu-title">Gestión</h6>
+          <a class="btn" href="./index.html" role="button"
+            ><i class="fa-solid fa-chart-line" style="color: #8c7d73"></i>
+            Resumen</a
+          >
+          <a class="btn" href="./reservations.html" role="button"
+            ><i class="fa-solid fa-calendar-days" style="color: #8c7d73"></i>
+            Reservas
+          </a>
+          <a class="btn" href="./orders.html" role="button"
+            ><i class="fa-solid fa-bag-shopping" style="color: #8c7d73"></i>
+            Pedidos
+          </a>
+          <a class="btn" href="./menu.html" role="button"
+            ><i class="fa-solid fa-utensils" style="color: #8c7d73"></i> Menu
+          </a>
+        </div>
+      </aside>
+      <div class="principal-container">
+        <nav class="navbar">
+          <h4>Dashboard - Nombre rest</h4>
+        </nav>
+        <main>
+          <div class="main-header-orders">
+            <div class="main-header-content">
+              <h1 class="main-title">Gestión de pedidos</h1>
+              <h6 class="main-subtitle">
+                Administra todas las reservas del restaurante
+              </h6>
+            </div>
+          </div>
+          <div class="main-content">
+            <div class="orders-card-filter card">
+              <div class="orders-card-body card-body">
+                <h4>Filtros</h4>
+                <div class="input-group mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    aria-label=""
+                    placeholder="Buscar por cliente o ID de reserva"
+                    aria-describedby="inputGroup-sizing-lg"
+                  />
+                  <button type="button" class="btn create-btn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="orders-card card">
+              <div class="orders-card-body card-body">
+                <div class="orders-card-header">
+                  <!-- el estado se cambia según esté pendiente pago, en preparación, en camino y entregado-->
+                  <h4 class="code-title">
+                    Código pedido
+                    <p
+                      class="code-order-status"
+                      style="background-color: #a7c957"
+                    >
+                      Estado
+                    </p>
+                  </h4>
+
+                  <div class="order-price">
+                    <h4 class="price">Precio</h4>
+                  </div>
+                </div>
+                <div class="orders-card-details">
+                  <div class="order-client-data">
+                    <h5>Información del cliente</h5>
+                    <p class="order-data">Nombre cliente</p>
+                    <p class="order-data">
+                      <i class="fa-solid fa-phone"></i> Teléfono
+                    </p>
+                  </div>
+                  <div class="order-details">
+                    <h5>Detalles de la reserva</h5>
+                    <p class="order-data">
+                      <i class="fa-solid fa-calendar-days"></i> Fecha
+                    </p>
+                    <button class="order-data btn btn-info orange-btn">Detalles</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
