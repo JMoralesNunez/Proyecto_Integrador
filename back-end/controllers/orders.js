@@ -9,6 +9,7 @@ exports.getAllOrders = async (req, res) => {
     o.id_order,
     o.order_date,
     o.total_price,
+    o.status,
     c.full_name AS client_name,
     c.address AS client_address
     FROM orders o
@@ -72,11 +73,12 @@ exports.getOrderById = async (req, res) => {
 
 exports.createOrder = async (req, res) => {
   const order_date = new Date();
+  const { status } = req.body;
 
   try {
     const result = await pool.query(
-      "INSERT INTO orders (order_date) VALUES ($1) RETURNING *",
-      [order_date]
+      "INSERT INTO orders (order_date, status) VALUES ($1) RETURNING *",
+      [order_date, status]
     );
 
     res.status(201).json(result.rows[0]);
