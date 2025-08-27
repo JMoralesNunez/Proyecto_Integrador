@@ -6,8 +6,10 @@ exports.getAllReservations = async (req, res) => {
   try {
     const result = await pool.query(`SELECT
       r.id_reservation,
-      r.date_reservation,
+      r.status,
+      TO_CHAR(r.date_reservation, 'DD/MM/YYYY HH12:MI AM') AS date_reservation,
       c.full_name AS client_name,
+      c.phone,
       t.id_table AS table_number
       FROM reservations r
       LEFT JOIN clients c ON r.id_client = c.id_client
@@ -23,10 +25,11 @@ exports.getAllReservations = async (req, res) => {
 exports.getNumberReservations = async (req, res) => {
   try {
     const result = await pool.query(`
-    SELECT COUNT(*) AS total_reservas_today
+    SELECT COUNT(*) AS total_reservations_today
     FROM reservations
     WHERE date_reservation AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' >= CURRENT_DATE
-    AND date_reservation AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' < CURRENT_DATE + INTERVAL '1 day';
+    AND date_reservation AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' < CURRENT_DATE + INTERVAL '1 day'
+    AND status = 'confirmada';
 `);
     res.json(result.rows);
   } catch (error) {

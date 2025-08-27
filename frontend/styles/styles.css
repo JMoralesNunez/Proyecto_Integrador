@@ -96,8 +96,7 @@ aside {
   background-color: var(--white);
 }
 
-.stats-card:hover,
-.reservations-card:hover {
+.stats-card:hover, .reservation-item:hover {
   box-shadow: 3px 4px 5px var(--grey-text);
 }
 
@@ -147,6 +146,10 @@ aside {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+}
+
+.reservation-item{
+  border-bottom: 1px solid rgba(221, 221, 221, 0.5);
 }
 
 .order-card-title,

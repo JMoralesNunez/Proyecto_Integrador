@@ -7,11 +7,12 @@ exports.getAllOrders = async (req, res) => {
     const result = await pool.query(`
     SELECT
     o.id_order,
-    o.order_date,
+    TO_CHAR(o.order_date, 'DD/MM/YYYY HH12:MI AM') AS order_date,
     o.total_price,
     o.status,
     o.id_table,
     c.full_name AS client_name,
+    c.phone,
     c.address AS client_address
     FROM orders o
     LEFT JOIN clients c ON o.id_client = c.id_client;
@@ -44,7 +45,7 @@ exports.getNumberOrders = async (req, res) => {
 exports.getTotalOrders = async (req, res) => {
   try {
     const result = await pool.query(`
-    SELECT COALESCE(SUM(total_price), 0) AS total_ingresos_today
+    SELECT COALESCE(SUM(total_price), 0) AS total_revenue_today
     FROM orders
     WHERE order_date AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' >= CURRENT_DATE
     AND order_date AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' < CURRENT_DATE + INTERVAL '1 day'
