@@ -20,6 +20,7 @@ SELECT
 o.id_order,
 o.order_date,
 o.total_price,
+o.status,
 c.full_name AS client_name,
 c.address AS client_address
 FROM orders o
