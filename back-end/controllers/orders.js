@@ -10,6 +10,7 @@ exports.getAllOrders = async (req, res) => {
     o.order_date,
     o.total_price,
     o.status,
+    o.id_table,
     c.full_name AS client_name,
     c.address AS client_address
     FROM orders o
@@ -46,7 +47,9 @@ exports.getTotalOrders = async (req, res) => {
     SELECT COALESCE(SUM(total_price), 0) AS total_ingresos_today
     FROM orders
     WHERE order_date AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' >= CURRENT_DATE
-    AND order_date AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' < CURRENT_DATE + INTERVAL '1 day';
+    AND order_date AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' < CURRENT_DATE + INTERVAL '1 day'
+    AND status = 'terminada';
+
 `);
     res.json(result.rows);
   } catch (error) {
@@ -73,12 +76,11 @@ exports.getOrderById = async (req, res) => {
 
 exports.createOrder = async (req, res) => {
   const order_date = new Date();
-  const { status } = req.body;
-
+  const { status, id_table, id_client } = req.body;
   try {
     const result = await pool.query(
       "INSERT INTO orders (order_date, status) VALUES ($1) RETURNING *",
-      [order_date, status]
+      [order_date, status, id_table, id_client]
     );
 
     res.status(201).json(result.rows[0]);
