@@ -255,6 +255,10 @@ aside {
   grid-template-columns: 1fr 1fr;
 }
 
+.order-item{
+  margin-bottom: 10px;
+}
+
 /* Menu */
 
 .deleteBtn:hover, .editBtn:hover{

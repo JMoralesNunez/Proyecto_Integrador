@@ -1,3 +1,6 @@
+import { ORDERS_API } from "./url_orders.js";
+
+
 
 export const orderModals = {
     async open(id) {
@@ -6,11 +9,11 @@ export const orderModals = {
         const total = document.getElementById("total");
 
         try {
-            const res = await fetch(API+id);
+            const res = await fetch(ORDERS_API+id);
             const [data] = await res.json();
-            quantity.innerText = data.quantity;
-            productName.innerText = data.name;
-            total.innerText = data.total_price
+            quantity.innerText = data.total_cantidad;
+            productName.innerText = data.name_product;
+            total.innerText = data.total_cantidad
         } catch (error) {
             console.log(error);
         }
