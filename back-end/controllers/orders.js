@@ -46,7 +46,9 @@ exports.getTotalOrders = async (req, res) => {
     SELECT COALESCE(SUM(total_price), 0) AS total_ingresos_today
     FROM orders
     WHERE order_date AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' >= CURRENT_DATE
-    AND order_date AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' < CURRENT_DATE + INTERVAL '1 day';
+    AND order_date AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' < CURRENT_DATE + INTERVAL '1 day'
+    AND status = 'terminada';
+
 `);
     res.json(result.rows);
   } catch (error) {
