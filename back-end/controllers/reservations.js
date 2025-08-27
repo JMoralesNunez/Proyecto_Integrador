@@ -4,13 +4,37 @@ const path = require('path');
 
 exports.getAllReservations = async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM reservations");
+    const result = await pool.query(`SELECT
+      r.id_reservation,
+      r.date_reservation,
+      c.full_name AS client_name,
+      t.id_table AS table_number
+      FROM reservations r
+      LEFT JOIN clients c ON r.id_client = c.id_client
+      LEFT JOIN rest_tables t ON r.id_table = t.id_table;
+`);
     res.json(result.rows);
   } catch (error) {
     console.error("Error al obtener items de orden:", error);
     res.status(500).json({ error: "Items de orden no obtenidos" });
   }
 }
+
+exports.getNumberReservations = async (req, res) => {
+  try {
+    const result = await pool.query(`
+    SELECT COUNT(*) AS total_reservas_today
+    FROM reservations
+    WHERE date_reservation AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' >= CURRENT_DATE
+    AND date_reservation AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' < CURRENT_DATE + INTERVAL '1 day';
+`);
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error al obtener ordenes:", error);
+    res.status(500).json({ error: "Ordenes no obtenidas" });
+  }
+};
+
 exports.getReservationById = async (req, res) => {
   const { id } = req.params;
   try {

@@ -4,13 +4,56 @@ const path = require('path');
 
 exports.getAllOrders = async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM orders");
+    const result = await pool.query(`
+    SELECT
+    o.id_order,
+    o.order_date,
+    o.total_price,
+    c.full_name AS client_name,
+    c.address AS client_address
+    FROM orders o
+    LEFT JOIN clients c ON o.id_client = c.id_client;
+`);
     res.json(result.rows);
   } catch (error) {
     console.error("Error al obtener ordenes:", error);
     res.status(500).json({ error: "Ordenes no obtenidas" });
   }
 };
+
+
+exports.getNumberOrders = async (req, res) => {
+  try {
+    const result = await pool.query(`
+    SELECT COUNT(*)
+    FROM orders
+    WHERE order_date AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' >= CURRENT_DATE
+    AND order_date AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' < CURRENT_DATE + INTERVAL '1 day';
+
+`);
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error al obtener ordenes:", error);
+    res.status(500).json({ error: "Ordenes no obtenidas" });
+  }
+};
+
+
+exports.getTotalOrders = async (req, res) => {
+  try {
+    const result = await pool.query(`
+    SELECT COALESCE(SUM(total_price), 0) AS total_ingresos_today
+    FROM orders
+    WHERE order_date AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' >= CURRENT_DATE
+    AND order_date AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' < CURRENT_DATE + INTERVAL '1 day';
+`);
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error al obtener ordenes:", error);
+    res.status(500).json({ error: "Ordenes no obtenidas" });
+  }
+};
+
 
 
 exports.getOrderById = async (req, res) => {
