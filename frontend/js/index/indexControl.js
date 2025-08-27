@@ -40,9 +40,6 @@ export const summaryLoaders = {
                             </h5>
                             <p class="order-status" style="background-color: #ffd60a;">${order}</p>
                             <p class="order-card-text">${order}</p>
-                            <p class="order-card-text">
-                            <small class="text-body-secondary">${order}</small>
-                            </p>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -70,7 +67,6 @@ export const summaryLoaders = {
                         <div class="reservations-card-body">
                             <h5 class="reservations-card-title">
                             ${reservation}
-                            <p class="reservations-people">${reservation} Personas</p>
                             </h5>
                             <p class="reservations-card-text">${reservation}</p>
                             <p class="reservations-card-text">
@@ -80,7 +76,6 @@ export const summaryLoaders = {
                     </div>
                     <div class="col-md-4">
                         <h5>${reservation}</h5>
-                        <h6>${reservation}</h6>
                     </div>
                 </div>
             </div>

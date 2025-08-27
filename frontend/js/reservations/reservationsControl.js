@@ -39,9 +39,6 @@ export const reservationLoaders = {
                         <p class="reservation-data">
                             <i class="fa-solid fa-clock"></i> ${reservation}
                         </p>
-                        <p class="reservation-data">
-                            <i class="fa-solid fa-users"></i> ${reservation}
-                        </p>
                         <p class="reservation-data">Mesa ${reservation}</p>
                     </div>
                 </div>
