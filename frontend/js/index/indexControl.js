@@ -22,13 +22,6 @@ export const summaryLoaders = {
         const revenue = await res.json()
         income.innerHTML = revenue
     },
-    async clients() {
-        const clients = document.getElementById("clients")
-        clients.innerHTML = ""
-        const res = await fetch();
-        const clientNum = await res.json()
-        clients.innerHTML = clientNum
-    },
     async orders() {
         const ordersContainer = document.getElementById("ordersContainer")
         ordersContainer.innerHTML = ""
