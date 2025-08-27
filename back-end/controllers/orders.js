@@ -10,7 +10,6 @@ exports.getAllOrders = async (req, res) => {
     TO_CHAR(o.order_date, 'DD/MM/YYYY HH12:MI AM') AS order_date,
     o.total_price,
     o.status,
-    o.id_table,
     c.full_name AS client_name,
     c.phone,
     c.address AS client_address

@@ -1,5 +1,5 @@
-import { orderModals } from "./orderModal";
-import { ORDERS_API } from "./url_orders";
+import { orderModals } from "./orderModal.js";
+import { ORDERS_API } from "./url_orders.js";
 
 
 
@@ -24,7 +24,7 @@ export const ordersLoaders = {
                     </p>
                 </h4>
                 <div class="order-price">
-                    <h4 class="price">${order.total_price}</h4>
+                    <h4 class="price">$${order.total_price}</h4>
                 </div>
                 </div>
                 <div class="orders-card-details">
