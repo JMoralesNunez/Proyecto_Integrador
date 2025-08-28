@@ -99,24 +99,31 @@ export const orderHandlers = {
   },
 
   renderTempItems() {
-    const tbody = document.getElementById("orderItemsTable");
-    tbody.innerHTML = "";
-    totalOrder = 0;
+  const tbody = document.getElementById("orderItemsTable");
+  tbody.innerHTML = "";
+  totalOrder = 0;
 
-    tempItems.forEach((item, index) => {
-      totalOrder += item.subtotal;
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${item.name_product}</td>
-        <td>${item.quantity}</td>
-        <td>$${item.subtotal}</td>
-        <td><button class="btn btn-sm btn-danger" onclick="orderHandlers.removeTempItem(${index})">❌</button></td>
-      `;
-      tbody.appendChild(row);
+  tempItems.forEach((item, index) => {
+    totalOrder += item.subtotal;
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${item.name_product}</td>
+      <td>${item.quantity}</td>
+      <td>$${item.subtotal}</td>
+      <td><button class="btn btn-sm btn-danger">❌</button></td>
+    `;
+
+    // aquí capturo el botón y le pongo el evento
+    row.querySelector("button").addEventListener("click", () => {
+      this.removeTempItem(index);
     });
 
-    document.getElementById("orderTotal").textContent = totalOrder;
-  },
+    tbody.appendChild(row);
+  });
+
+  document.getElementById("orderTotal").textContent = totalOrder;
+},
+
 
   removeTempItem(index) {
     tempItems.splice(index, 1);
