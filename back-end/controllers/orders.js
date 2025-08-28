@@ -79,7 +79,7 @@ exports.createOrder = async (req, res) => {
   const { status, id_table, id_client } = req.body;
   try {
     const result = await pool.query(
-      "INSERT INTO orders (order_date, status) VALUES ($1) RETURNING *",
+      "INSERT INTO orders (order_date, status, id_table, id_client) VALUES ($1, $2, $3, $4) RETURNING *",
       [order_date, status, id_table, id_client]
     );
 
@@ -133,5 +133,33 @@ exports.getItemsByOrderId = async (req, res) => {
   } catch (error) {
     console.error("Error al obtener items de la orden:", error);
     res.status(500).json({ error: "No se pudieron obtener los items" });
+  }
+};
+
+exports.updateOrder = async (req, res) => {
+  const { id } = req.params;
+  const { status, total_price, id_table, id_client } = req.body;
+
+  try {
+    const result = await pool.query(
+      `UPDATE orders 
+       SET 
+         status = COALESCE($1, status), 
+         total_price = COALESCE($2, total_price), 
+         id_table = COALESCE($3, id_table), 
+         id_client = COALESCE($4, id_client)
+       WHERE id_order = $5 
+       RETURNING *`,
+      [status, total_price, id_table, id_client, id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Orden no encontrada" });
+    }
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error al actualizar orden:", error);
+    res.status(500).json({ error: "Orden no actualizada" });
   }
 };
