@@ -4,16 +4,18 @@ WHERE order_date AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' >= CURRENT_DAT
 AND order_date AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' < CURRENT_DATE + INTERVAL '1 day';
 
 
-SELECT COUNT(*) AS total_reservas_today
+SELECT COUNT(*) AS total_reservations_today
 FROM reservations
 WHERE date_reservation AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' >= CURRENT_DATE
-AND date_reservation AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' < CURRENT_DATE + INTERVAL '1 day';
+AND date_reservation AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' < CURRENT_DATE + INTERVAL '1 day'
+AND status = 'confirmada';
 
 
 SELECT COALESCE(SUM(total_price), 0) AS total_ingresos_today
 FROM orders
 WHERE order_date AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' >= CURRENT_DATE
-AND order_date AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' < CURRENT_DATE + INTERVAL '1 day';
+AND order_date AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' < CURRENT_DATE + INTERVAL '1 day'
+AND status = 'terminada';
 
 
 SELECT

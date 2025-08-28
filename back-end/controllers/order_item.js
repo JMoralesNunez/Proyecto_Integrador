@@ -4,7 +4,16 @@ const path = require('path');
 
 exports.getAllOrder_items = async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM order_items");
+    const result = await pool.query(`
+      SELECT 
+      oi.id_order,
+      p.name_product,
+      SUM(oi.quantity) AS total_cantidad,
+      SUM(oi.quantity * p.price) AS total_producto
+      FROM order_items oi
+      INNER JOIN products p ON oi.id_product = p.id_product
+      GROUP BY oi.id_order, p.id_product, p.name_product
+      ORDER BY oi.id_order, total_producto DESC;`);
     res.json(result.rows);
   } catch (error) {
     console.error("Error al obtener items de orden:", error);
@@ -14,7 +23,19 @@ exports.getAllOrder_items = async (req, res) => {
 exports.getOrder_itemsById = async (req, res) => {
   const { id } = req.params;
   try {
-    const result = await pool.query("SELECT * FROM order_items WHERE id_order_item = $1", [id]);
+    const result = await pool.query(`
+    SELECT 
+    oi.id_order_item,
+    p.name_product,
+    SUM(oi.quantity) AS total_cantidad,
+    SUM(oi.quantity * p.price) AS total_producto
+    FROM order_items oi
+    INNER JOIN products p 
+    ON oi.id_product = p.id_product
+    WHERE oi.id_order_item = $1
+    GROUP BY oi.id_order_item, p.id_product, p.name_product
+    ORDER BY total_producto DESC;
+`, [id]);
     if (result.rows.length === 0) {
       return res.status(404).json({ error: "Item de orden no encontrado" });
     }

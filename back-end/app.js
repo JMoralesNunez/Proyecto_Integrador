@@ -10,6 +10,7 @@ const rest_tablesRouter = require('./routes/rest_tables');
 const ordersRouter = require('./routes/orders');
 const order_itemsRouter = require('./routes/order_item');
 const reservationsRouter = require('./routes/reservations');
+const loginRouter = require('./routes/login')
 
 const app = express();
 const app_port = process.env.APP_PORT || 3001
@@ -23,6 +24,7 @@ app.use('/rest_tables', rest_tablesRouter);
 app.use('/orders', ordersRouter);
 app.use('/order_items', order_itemsRouter);
 app.use('/reservations', reservationsRouter);
+app.use('/login', loginRouter);
 
 app.get('/', async (req, res) => {
     try {

@@ -7,10 +7,11 @@ exports.getAllOrders = async (req, res) => {
     const result = await pool.query(`
     SELECT
     o.id_order,
-    o.order_date,
+    TO_CHAR(o.order_date, 'DD/MM/YYYY HH12:MI AM') AS order_date,
     o.total_price,
     o.status,
     c.full_name AS client_name,
+    c.phone,
     c.address AS client_address
     FROM orders o
     LEFT JOIN clients c ON o.id_client = c.id_client;
@@ -43,10 +44,12 @@ exports.getNumberOrders = async (req, res) => {
 exports.getTotalOrders = async (req, res) => {
   try {
     const result = await pool.query(`
-    SELECT COALESCE(SUM(total_price), 0) AS total_ingresos_today
+    SELECT COALESCE(SUM(total_price), 0) AS total_revenue_today
     FROM orders
     WHERE order_date AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' >= CURRENT_DATE
-    AND order_date AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' < CURRENT_DATE + INTERVAL '1 day';
+    AND order_date AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' < CURRENT_DATE + INTERVAL '1 day'
+    AND status = 'terminada';
+
 `);
     res.json(result.rows);
   } catch (error) {
@@ -73,12 +76,11 @@ exports.getOrderById = async (req, res) => {
 
 exports.createOrder = async (req, res) => {
   const order_date = new Date();
-  const { status } = req.body;
-
+  const { status, id_table, id_client } = req.body;
   try {
     const result = await pool.query(
-      "INSERT INTO orders (order_date, status) VALUES ($1) RETURNING *",
-      [order_date, status]
+      "INSERT INTO orders (order_date, status, id_table, id_client) VALUES ($1, $2, $3, $4) RETURNING *",
+      [order_date, status, id_table, id_client]
     );
 
     res.status(201).json(result.rows[0]);
@@ -101,3 +103,63 @@ exports.deleteOrder = async (req, res) => {
     res.status(500).json({ error: "Orden no eliminada" });
   }
 }
+
+exports.getItemsByOrderId = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await pool.query(
+      `
+      SELECT 
+        oi.id_order_item,
+        oi.id_order,
+        oi.quantity,
+        p.id_product,
+        p.name_product,
+        p.price,
+        (oi.quantity * p.price) AS total_producto
+      FROM order_items oi
+      INNER JOIN products p ON oi.id_product = p.id_product
+      WHERE oi.id_order = $1
+      ORDER BY oi.id_order_item ASC;
+      `,
+      [id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: "No se encontraron items para esta orden" });
+    }
+
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error al obtener items de la orden:", error);
+    res.status(500).json({ error: "No se pudieron obtener los items" });
+  }
+};
+
+exports.updateOrder = async (req, res) => {
+  const { id } = req.params;
+  const { status, total_price, id_table, id_client } = req.body;
+
+  try {
+    const result = await pool.query(
+      `UPDATE orders 
+       SET 
+         status = COALESCE($1, status), 
+         total_price = COALESCE($2, total_price), 
+         id_table = COALESCE($3, id_table), 
+         id_client = COALESCE($4, id_client)
+       WHERE id_order = $5 
+       RETURNING *`,
+      [status, total_price, id_table, id_client, id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Orden no encontrada" });
+    }
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error al actualizar orden:", error);
+    res.status(500).json({ error: "Orden no actualizada" });
+  }
+};

@@ -96,8 +96,7 @@ aside {
   background-color: var(--white);
 }
 
-.stats-card:hover,
-.reservations-card:hover {
+.stats-card:hover, .reservation-item:hover {
   box-shadow: 3px 4px 5px var(--grey-text);
 }
 
@@ -147,6 +146,10 @@ aside {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+}
+
+.reservation-item{
+  border-bottom: 1px solid rgba(221, 221, 221, 0.5);
 }
 
 .order-card-title,
@@ -252,6 +255,10 @@ aside {
   grid-template-columns: 1fr 1fr;
 }
 
+.order-item{
+  margin-bottom: 10px;
+}
+
 /* Menu */
 
 .deleteBtn:hover, .editBtn:hover{
@@ -301,6 +308,85 @@ aside {
     color: #e74c3c;
     font-weight: bold;
 }
+
+/* Login styles */
+  .body-container {
+    background: #fff;
+    font-family: "Segoe UI", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fff6f0, #ffe5d1);
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 400px;
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border: 1px solid #ff7e00;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .login-card .logo {
+    width: 90px;
+    margin-bottom: 1rem;
+    background: #fff;
+    border: 3px solid #ff7e00;
+    border-radius: 50%;
+    padding: 5px;
+  }
+
+  .form-control {
+    border-radius: 0.5rem;
+    padding: 0.6rem 1rem;
+    border: 1px solid #ddd;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .form-control:focus {
+    border-color: #ff7e00;
+    box-shadow: 0 0 0 0.2rem rgba(255, 126, 0, 0.2);
+  }
+
+  .form-label {
+    font-weight: 600;
+    color: #444;
+  }
+
+  .btn-orange {
+    background-color: #ff7e00;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    padding: 0.6rem;
+    color: #fff;
+    transition: background 0.2s ease, transform 0.1s ease;
+  }
+
+  .btn-orange:hover {
+    background-color: #e96d00;
+    transform: translateY(-2px);
+  }
+
+  .extra-links {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .extra-links a {
+    color: #ff7e00;
+    text-decoration: none;
+  }
+
+  .extra-links a:hover {
+    text-decoration: underline;
+  }
+
 
 @keyframes show {
     from {

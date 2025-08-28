@@ -27,8 +27,8 @@ CREATE TABLE orders (
     id_order SERIAL PRIMARY KEY,
     order_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     status VARCHAR(20) NOT NULL CHECK (status IN ('terminada', 'cancelada', 'en proceso')),
-    total_price INT NOT NULL,
-    id_table INT,
+    total_price INT NULL,
+    id_table INT null,
     id_client VARCHAR(120),
     FOREIGN KEY (id_table) REFERENCES rest_tables(id_table),
     FOREIGN KEY (id_client) REFERENCES clients(id_client)
