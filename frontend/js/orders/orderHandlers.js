@@ -30,15 +30,18 @@ export const orderHandlers = {
   },
 
   async createOrder() {
-    const status = document.getElementById("orderStatus").value;
-    const id_table = document.getElementById("orderTable").value || null;
-    const id_client = document.getElementById("orderClient").value || null;
+  const status = document.getElementById("orderStatus").value;
+  const id_table_input = document.getElementById("orderTable").value;
+  const id_client = document.getElementById("orderClient").value || null;
 
-    if (!id_table || isNaN(id_table) || Number(id_table) <= 0) {
-      alert("Número de Mesa es obligatorio.");
-      return;
-    }
+  const id_table = id_table_input === "" ? null : Number(id_table_input);
 
+  if (id_table !== null && (isNaN(id_table) || id_table < 0)) {
+    alert("Número de mesa inválido.");
+    return;
+  }
+
+  if (id_table !== null) {
     try {
       const res = await fetch(`http://localhost:3001/rest_tables/${id_table}`);
       if (!res.ok) {
@@ -56,32 +59,33 @@ export const orderHandlers = {
       alert("No se pudo verificar la disponibilidad de la mesa.");
       return;
     }
+  }
 
-    try {
-      const res = await fetch("http://localhost:3001/orders", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status, id_table, id_client })
-      });
+  try {
+    const res = await fetch("http://localhost:3001/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status, id_table, id_client })
+    });
 
-      const order = await res.json();
-      currentOrderId = order.id_order;
+    const order = await res.json();
+    currentOrderId = order.id_order;
 
-      tempItems = [];
-      totalOrder = 0;
-      document.getElementById("orderItemsTable").innerHTML = "";
-      document.getElementById("orderTotal").textContent = totalOrder;
+    tempItems = [];
+    totalOrder = 0;
+    document.getElementById("orderItemsTable").innerHTML = "";
+    document.getElementById("orderTotal").textContent = totalOrder;
 
-      document.getElementById("productsSection").style.display = "block";
+    document.getElementById("productsSection").style.display = "block";
 
-      if (id_table) {
-        await fetch(`http://localhost:3001/rest_tables/${id_table}/occupy`, { method: "PUT" });
-      }
-    } catch (error) {
-      console.error("Error al crear orden:", error);
-      alert("No se pudo crear la orden.");
+    if (id_table !== null) {
+      await fetch(`http://localhost:3001/rest_tables/${id_table}/occupy`, { method: "PUT" });
     }
-  },
+  } catch (error) {
+    console.error("Error al crear orden:", error);
+    alert("No se pudo crear la orden.");
+  }
+},
 
   addProductTemp() {
     const id_product = document.getElementById("productSelect").value;
@@ -113,7 +117,7 @@ export const orderHandlers = {
       <td><button class="btn btn-sm btn-danger">❌</button></td>
     `;
 
-    // aquí capturo el botón y le pongo el evento
+
     row.querySelector("button").addEventListener("click", () => {
       this.removeTempItem(index);
     });
