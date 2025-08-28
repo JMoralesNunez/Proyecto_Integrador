@@ -1,5 +1,5 @@
-let isAuth = sessionStorage.getItem("auth");
+let isAuth = sessionStorage.getItem("user");
 
-if (isAuth != "true") {
-    window.location = "../pages/login.html"
+if (isAuth != "true") {    
+    window.location = "./../pages/login.html";
 }

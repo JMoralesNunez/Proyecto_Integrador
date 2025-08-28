@@ -15,7 +15,7 @@ exports.getAllProducts = async (req, res) => {
 exports.getProductById = async (req, res) => {
     const { id } = req.params;
     try {
-        const result = await pool.query('SELECT * FROM products WHERE id = $1', [id]);
+        const result = await pool.query('SELECT * FROM products WHERE id_product = $1', [id]);
         if (result.rows.length === 0) {
             return res.status(404).json({ error: 'Product not found' });
         }
@@ -45,7 +45,7 @@ exports.updateProduct = async (req, res) => {
     const { name, description, price, stock } = req.body;
     try {
         const result = await pool.query(
-            'UPDATE products SET name = $1, description = $2, price = $3, stock = $4 WHERE id = $5 RETURNING *',
+            'UPDATE products SET name = $1, description = $2, price = $3, stock = $4 WHERE id_product = $5 RETURNING *',
             [name, description, price, stock, id]
         );
         if (result.rows.length === 0) {
@@ -61,7 +61,7 @@ exports.updateProduct = async (req, res) => {
 exports.deleteProduct = async (req, res) => {
     const { id } = req.params;
     try {
-        const result = await pool.query('DELETE FROM products WHERE id = $1 RETURNING *', [id]);
+        const result = await pool.query('DELETE FROM products WHERE id_product = $1 RETURNING *', [id]);
         if (result.rows.length === 0) {
             return res.status(404).json({ error: 'Product not found' });
         }

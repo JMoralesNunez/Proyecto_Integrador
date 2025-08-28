@@ -1,19 +1,30 @@
-async function auth() {
-    const email = document.querySelector("#email").value;
-    const password = document.querySelector("#password").value;
+const btnLogin = document.getElementById("btnLogin");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
 
-    if (email && password) {
-        const res = await fetch(API_URL)
-        const data = await res.json();
-        const user = data.find(u => u.email === email && u.password === password);
-        if (user) {
-                sessionStorage.setItem("auth", "true")                
-                window.location = "../../home.html"
-        } else {
-            alert("Credenciales no permitidas")
+
+document.addEventListener("DOMContentLoaded", () => {
+    btnLogin.addEventListener("click", async ()=>{
+        const email = emailInput.value;
+        const password = passwordInput.value;
+        
+        try {
+            const response = await fetch("http://localhost:3001/login"); 
+            const admins = await response.json();
+
+            const user = admins.find(
+                admin => admin.email_admin === email && admin.password_admin === password
+            );
+
+            if (user) {
+                alert("¡Login exitoso!");
+                sessionStorage.setItem("user", "true");
+                window.location = "../pages/index.html";
+            } else {
+                alert("Credenciales incorrectas");
+            }
+        } catch (error) {
+            console.error("Error en el login:", error);
         }
-    } else {
-        alert("Rellena los campos")
-    }
-}
-const logBtn = document.querySelector(".btn").addEventListener("click", auth)
+    });
+});
