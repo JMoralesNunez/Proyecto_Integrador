@@ -42,6 +42,9 @@
             <h6 class="main-subtitle">
               Administra todos los pedidos del restaurante
             </h6>
+            <button type="button" class="btn orange-btn" data-bs-toggle="modal" data-bs-target="#orderModal">
+              Crear Orden
+            </button>
           </div>
         </div>
         <div class="main-content">
@@ -111,10 +114,6 @@
     </div>
   </dialog>
 
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#orderModal">
-    Crear Orden
-  </button>
-
   <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -144,7 +143,7 @@
             </div>
 
 
-            <button type="button" class="btn btn-success" id="btnCreateOrder">Crear Orden</button>
+            <button type="button" class="btn orange-btn" id="btnCreateOrder">Crear Orden</button>
           </form>
 
           <hr />
@@ -186,7 +185,7 @@
             <h5>Total: $<span id="orderTotal">0</span></h5>
 
             <div class="d-flex justify-content-between mt-3">
-     
+
               <button type="button" class="btn btn-success" id="btnSaveOrder">Guardar Pedido</button>
               <button type="button" class="btn btn-danger" id="btnCancelOrder">Cancelar Pedido</button>
             </div>

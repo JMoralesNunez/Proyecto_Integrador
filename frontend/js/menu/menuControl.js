@@ -42,7 +42,7 @@ export const menuController = {
         if (getProductId()) {
             //Edit mode
             try {
-                const res = await fetch(`${PRODUCT_API}${getClientId()}`, {
+                const res = await fetch(`${PRODUCT_API}${getProductId()}`, {
                     "method": 'PUT',
                     "headers": {
                         'Content-Type': 'application/json'
