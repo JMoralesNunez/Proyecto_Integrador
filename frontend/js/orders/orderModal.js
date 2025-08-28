@@ -1,19 +1,20 @@
-import { ORDERS_API } from "./url_orders.js";
-
-
+import { DETAILS_API } from "./url_orders.js";
 
 export const orderModals = {
     async open(id) {
-        const quantity = document.getElementById("quantity");
-        const productName = document.getElementById("productName");
-        const total = document.getElementById("total");
-
+        const detailsTable = document.getElementById("detailsTable");
         try {
-            const res = await fetch(ORDERS_API+id);
-            const [data] = await res.json();
-            quantity.innerText = data.total_cantidad;
-            productName.innerText = data.name_product;
-            total.innerText = data.total_cantidad
+            const res = await fetch(DETAILS_API+id);
+            const details = await res.json();
+            details.forEach(detail => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <th>${detail.quantity}</th>
+                    <td>${detail.product_name}</td>
+                    <td>${detail.total}</td>
+                `;
+                detailsTable.appendChild(row)
+            });
         } catch (error) {
             console.log(error);
         }

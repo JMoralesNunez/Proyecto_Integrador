@@ -25,15 +25,15 @@ exports.getOrder_itemsById = async (req, res) => {
   try {
     const result = await pool.query(`
     SELECT 
-    oi.id_order,
+    oi.id_order_item,
     p.name_product,
     SUM(oi.quantity) AS total_cantidad,
     SUM(oi.quantity * p.price) AS total_producto
     FROM order_items oi
     INNER JOIN products p 
     ON oi.id_product = p.id_product
-    WHERE oi.id_order = $1
-    GROUP BY oi.id_order, p.id_product, p.name_product
+    WHERE oi.id_order_item = $1
+    GROUP BY oi.id_order_item, p.id_product, p.name_product
     ORDER BY total_producto DESC;
 `, [id]);
     if (result.rows.length === 0) {
