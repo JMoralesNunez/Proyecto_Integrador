@@ -71,3 +71,26 @@ exports.deleteTable = async (req, res) => {
         res.status(500).json({ error: 'Error deleting table' });
     }
 }
+
+
+exports.occupyTable = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await pool.query("UPDATE rest_tables SET availability = 'occupied' WHERE id_table = $1", [id]);
+    res.status(200).json({ message: "Mesa ocupada con éxito" });
+  } catch (error) {
+    console.error("Error al ocupar mesa:", error);
+    res.status(500).json({ error: "Error al ocupar mesa" });
+  }
+};
+
+exports.freeTable = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await pool.query("UPDATE rest_tables SET availability = 'available' WHERE id_table = $1", [id]);
+    res.status(200).json({ message: "Mesa liberada con éxito" });
+  } catch (error) {
+    console.error("Error al liberar mesa:", error);
+    res.status(500).json({ error: "Error al liberar mesa" });
+  }
+};
