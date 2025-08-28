@@ -103,3 +103,35 @@ exports.deleteOrder = async (req, res) => {
     res.status(500).json({ error: "Orden no eliminada" });
   }
 }
+
+exports.getItemsByOrderId = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await pool.query(
+      `
+      SELECT 
+        oi.id_order_item,
+        oi.id_order,
+        oi.quantity,
+        p.id_product,
+        p.name_product,
+        p.price,
+        (oi.quantity * p.price) AS total_producto
+      FROM order_items oi
+      INNER JOIN products p ON oi.id_product = p.id_product
+      WHERE oi.id_order = $1
+      ORDER BY oi.id_order_item ASC;
+      `,
+      [id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: "No se encontraron items para esta orden" });
+    }
+
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error al obtener items de la orden:", error);
+    res.status(500).json({ error: "No se pudieron obtener los items" });
+  }
+};
