@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bootstrap demo</title>
+  <title>Ordexx</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous" />
   <script src="https://kit.fontawesome.com/ea4c7975d5.js" crossorigin="anonymous"></script>
@@ -14,7 +14,7 @@
 <body>
   <div class="index-container">
     <aside>
-      <h2 class="aside-title">App name</h2>
+      <h2 class="aside-title">Ordexx</h2>
       <div class="menu gap-2">
         <h6 class="menu-title">Gestión</h6>
         <a class="btn" href="./index.html" role="button"><i class="fa-solid fa-chart-line"></i>
@@ -31,7 +31,7 @@
     </aside>
     <div class="principal-container">
       <nav class="navbar">
-        <h4>Dashboard - Nombre rest</h4>
+        <h4>Dashboard - Ordexx</h4>
       </nav>
       <main>
         <div class="main-header">
@@ -46,7 +46,7 @@
               <div class="stats-card-header">Pedidos hoy</div>
               <div class="stats-card-body">
                 <figure>
-                  <h5 id="orderNumber" class="day-stats">Número de pedidos del día aqui</h5>
+                  <h5 id="orderNumber" class="day-stats text-center"></h5>
                 </figure>
               </div>
             </div>
@@ -54,7 +54,7 @@
               <div class="stats-card-header">Reservas hoy</div>
               <div class="stats-card-body">
                 <figure>
-                  <h5 id="reservationNumber" class="day-stats">Número de reservas del día aqui</h5>
+                  <h5 id="reservationNumber" class="day-stats text-center"></h5>
                 </figure>
               </div>
             </div>
@@ -62,51 +62,18 @@
               <div class="stats-card-header">Ingresos hoy</div>
               <div class="stats-card-body">
                 <figure>
-                  <h5 id="income" class="day-stats">Número de ingresos del día aqui</h5>
-                </figure>
-              </div>
-            </div>
-            <div class="stats-card">
-              <div class="stats-card-header">Clientes activos</div>
-              <div class="stats-card-body">
-                <figure>
-                  <h5 id="clients" class="day-stats">
-                    Número de clientes activos del día aqui
-                  </h5>
+                  <h5 id="income" class="day-stats text-center"></h5>
                 </figure>
               </div>
             </div>
           </div>
           <div class="tables">
             <div class="latest-orders">
-              <!-- valores quemados, reemplazar en el js-->
               <h4 class="table-title">
                 <i class="fa-solid fa-bag-shopping" style="color: #e85d04"></i>
                 Pedidos recientes
               </h4>
-              <div class="ordersContainer">
-                <div class="order-table-body">
-                  <div class="card mb-3 order-card" style="max-width: 540px">
-                    <div class="row order-row">
-                      <div class="col-md-8">
-                        <div class="order-card-body">
-                          <h5 class="order-card-title">
-                            Número pedido
-                          </h5>
-                          <p class="order-status" style="background-color: #ffd60a;">Estado</p>
-                          <p class="order-card-text">Nombre cliente</p>
-                          <p class="order-card-text">
-                            <small class="text-body-secondary">Productos del pedido</small>
-                          </p>
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <h5>Precio total</h5>
-                        <h6>Hora entrada del pedido</h6>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div id="ordersContainer">
               </div>
             </div>
             <div class="next-reservations">
@@ -114,15 +81,14 @@
                 <i class="fa-solid fa-calendar-days" style="color: #e85d04"></i>
                 Próximas reservas
               </h3>
-              <div class="reservationsContainer">
+              <div id="reservationsContainer">
                 <div class="reservations-table-body">
                   <div class="card mb-3 reservations-card-index" style="max-width: 540px">
                     <div class="row reservations-row">
                       <div class="col-md-8">
                         <div class="reservations-card-body">
                           <h5 class="reservations-card-title">
-                            Hora reserva
-                            <p class="reservations-people"># personas</p>
+                            Fecha reserva
                           </h5>
                           <p class="reservations-card-text">Nombre cliente</p>
                           <p class="reservations-card-text">
@@ -131,8 +97,7 @@
                         </div>
                       </div>
                       <div class="col-md-4">
-                        <h5>Precio total</h5>
-                        <h6>Hora entrada del pedido</h6>
+                        <h5>Hora reserva</h5>
                       </div>
                     </div>
                   </div>
@@ -149,6 +114,7 @@
     integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
     crossorigin="anonymous"></script>
   <script type="module" src="../js/index/index.js"></script>
+  <!-- <script src = "./../js/guardian.js"></script> -->
 </body>
 
 </html>
