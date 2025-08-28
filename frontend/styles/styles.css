@@ -10,9 +10,14 @@
   --orange-button-hover: #e2711d;
 }
 
-html {
-  margin: 0;
+*{
   padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
 }
 
 /* body * {
@@ -22,6 +27,9 @@ html {
 
 main {
   background-color: var(--grey-background);
+  overflow-y: auto;
+  height: 100%;
+  padding-bottom: 2rem; /* Opcional: para evitar que el contenido toque el borde inferior */
 }
 
 .index-container {
@@ -75,14 +83,17 @@ aside {
 .principal-container {
   display: grid;
   grid-template-rows: 8% 92%;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .main-content {
   display: grid;
   grid-template-rows: auto auto;
-  padding: 0 2rem;
-  gap: 2rem;
+  gap: 2.5rem;
   align-items: start;
+  min-height: 0; 
+  padding-bottom: 2rem;
 }
 
 .day-stats {
@@ -256,7 +267,7 @@ aside {
 }
 
 .order-item{
-  margin-bottom: 10px;
+   margin-bottom: 2rem;
 }
 
 /* Menu */
@@ -338,3 +349,4 @@ aside {
     max-height: 300px;
   }
 }
+
