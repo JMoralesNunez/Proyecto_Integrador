@@ -15,7 +15,7 @@ exports.getAllClients = async (req, res) => {
 exports.getClientById = async (req, res) => {
   const { id } = req.params;
   try {
-    const result = await pool.query("SELECT * FROM clients WHERE id = $1", [id]);
+    const result = await pool.query("SELECT * FROM clients WHERE id_client = $1", [id]);
     if (result.rows.length === 0) {
       return res.status(404).json({ error: "Cliente no encontrado" });
     }
@@ -27,11 +27,11 @@ exports.getClientById = async (req, res) => {
 }
 
 exports.createClient = async (req, res) => {
-  const { name, email, phone } = req.body;
+  const {id_client, full_name, phone, addres } = req.body;
   try {
     const result = await pool.query(
-      "INSERT INTO clients (name, email, phone) VALUES ($1, $2, $3) RETURNING *",
-      [name, email, phone]
+      "INSERT INTO clients (id_client, full_name, phone, addres) VALUES ($1, $2, $3, $4) RETURNING *",
+      [id_client, full_name, phone, addres]
     );
     res.status(201).json(result.rows[0]);
   } catch (error) {
@@ -42,11 +42,11 @@ exports.createClient = async (req, res) => {
 
 exports.updateClient = async (req, res) => {
   const { id } = req.params;
-  const { name, email, phone } = req.body;
+  const { full_name, phone, addres } = req.body;
   try {
     const result = await pool.query(
-      "UPDATE clients SET name = $1, email = $2, phone = $3 WHERE id = $4 RETURNING *",
-      [name, email, phone, id]
+      "UPDATE clients SET full_name = $1, phone = $2, address = $3 WHERE id_client = $4 RETURNING *",
+      [full_name, phone, addres, id]
     );
     if (result.rows.length === 0) {
       return res.status(404).json({ error: "Cliente no encontrado" });
