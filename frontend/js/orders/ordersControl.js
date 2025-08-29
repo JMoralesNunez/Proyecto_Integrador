@@ -4,12 +4,22 @@ import { ORDERS_API } from "./url_orders.js";
 
 
 export const ordersLoaders = {
-    async orders(){
+    async orders() {
         const ordersContainer = document.getElementById("ordersContainer");
         ordersContainer.innerHTML = "";
         const res = await fetch(ORDERS_API);
         const orders = await res.json();
         orders.forEach(order => {
+            if (order.client_address === null) {
+                order.client_address = "Pedido en restaurante"
+            }
+            if (order.client_name === null || order.phone === null) {
+                order.client_name = "Cliente no registrado"
+                order.phone = "No registrado"
+            }
+            const total_price = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(order.total_price);
+            order.total_price = total_price
+
             const row = document.createElement("div")
             row.className = "card-body order-item card"
             row.innerHTML = `
@@ -24,7 +34,7 @@ export const ordersLoaders = {
                     </p>
                 </h4>
                 <div class="order-price">
-                    <h4 class="price">$${order.total_price}</h4>
+                    <h4 class="price">${order.total_price}</h4>
                 </div>
                 </div>
                 <div class="orders-card-details">
@@ -38,6 +48,7 @@ export const ordersLoaders = {
                 <div class="order-details">
                     <h5>Detalles del pedido</h5>
                     <p class="order-data">
+                    <p class="order-data"><i class="fa-solid fa-map-pin"></i> ${order.client_address}</p>
                     <i class="fa-solid fa-calendar-days"></i> ${order.order_date}
                     </p>
                 </div>
@@ -47,7 +58,7 @@ export const ordersLoaders = {
             const detailsBtn = document.createElement("button");
             detailsBtn.className = "order-data btn btn-info orange-btn";
             detailsBtn.innerText = "Detalles";
-            detailsBtn.addEventListener("click", ()=>{
+            detailsBtn.addEventListener("click", () => {
                 orderModals.open(order.id_order)
             });
             actionsCell.appendChild(detailsBtn);
