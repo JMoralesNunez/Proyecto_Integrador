@@ -4,7 +4,7 @@ const path = require('path');
 
 exports.getAllProducts = async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM products');
+        const result = await pool.query('SELECT * FROM products ORDER BY id_product');
         res.status(200).json(result.rows);
     } catch (error) {
         console.error('Error fetching products:', error);
@@ -27,11 +27,11 @@ exports.getProductById = async (req, res) => {
 }   
 
 exports.createProduct = async (req, res) => {
-    const { name, description, price, stock } = req.body;
+    const { name_product, price} = req.body;
     try {
         const result = await pool.query(
-            'INSERT INTO products (name, description, price, stock) VALUES ($1, $2, $3, $4) RETURNING *',
-            [name, description, price, stock]
+            'INSERT INTO products (name_product, price) VALUES ($1, $2) RETURNING *',
+            [name_product, price]
         );
         res.status(201).json(result.rows[0]);
     } catch (error) {
@@ -42,11 +42,11 @@ exports.createProduct = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
     const { id } = req.params;
-    const { name, description, price, stock } = req.body;
+    const { name_product, price } = req.body;
     try {
         const result = await pool.query(
-            'UPDATE products SET name = $1, description = $2, price = $3, stock = $4 WHERE id_product = $5 RETURNING *',
-            [name, description, price, stock, id]
+            'UPDATE products SET name_product = $1, price = $2 WHERE id_product = $3 RETURNING *',
+            [name_product, price, id]
         );
         if (result.rows.length === 0) {
             return res.status(404).json({ error: 'Product not found' });
