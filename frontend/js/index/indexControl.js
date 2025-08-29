@@ -22,7 +22,7 @@ export const summaryLoaders = {
         income.innerHTML = ""
         const res = await fetch(INCOME_API);
         const [revenue] = await res.json()
-        income.innerText = revenue.total_revenue_today
+        income.innerText = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(revenue.total_revenue_today);
     },
     async orders() {
         const ordersContainer = document.getElementById("ordersContainer")
@@ -30,6 +30,15 @@ export const summaryLoaders = {
         const res = await fetch(ORDERS_API);
         const orders = await res.json();
         orders.forEach(order => {
+            if (order.id_table === null) {
+                order.id_table = "sin asignar"
+            }
+            if (order.client_name === null) {
+                order.client_name = "Cliente no registrado"
+            }
+            const total_price = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(order.total_price);
+            order.total_price = total_price
+
             const row = document.createElement("div")
             row.className = "order-table-body"
             row.innerHTML = `
@@ -42,7 +51,7 @@ export const summaryLoaders = {
                             <span class="order-status" style="background-color: #ffd60a;">${order.status}</span>
                         </div>
                         <p class="order-card-text">${order.client_name}</p>
-                        <p class="order-card-text">${order.id_table}</p>
+                        <p class="order-card-text">Mesa: ${order.id_table}</p>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -61,6 +70,7 @@ export const summaryLoaders = {
         const res = await fetch(RESERVATIONS_API);
         const reservations = await res.json();
         reservations.forEach(reservation => {
+
             const row = document.createElement("div");
             row.className = "reservations-table-body";
             row.innerHTML = `
