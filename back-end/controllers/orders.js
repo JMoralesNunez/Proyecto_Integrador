@@ -168,7 +168,7 @@ exports.updateOrder = async (req, res) => {
 };
 
 exports.updateOrderStatus = async (req, res) => {
-  const { id_order } = req.params;
+  const { id } = req.params;
   const { status } = req.body;
 
   if (!["terminada", "cancelada", "en proceso"].includes(status)) {
@@ -178,7 +178,7 @@ exports.updateOrderStatus = async (req, res) => {
   try {
     const result = await pool.query(
       "UPDATE orders SET status = $1 WHERE id_order = $2 RETURNING *",
-      [status, id_order]
+      [status, id]
     );
 
     if (result.rows.length === 0) {
@@ -192,3 +192,26 @@ exports.updateOrderStatus = async (req, res) => {
   }
 };
 
+exports.updateTableStatus = async (req, res) => {
+  const { id_table } = req.params;
+  const { status } = req.body;
+  if (!["occupied", "available", "reserved"].includes(status)) {
+    return res.status(400).json({ error: "Estado de mesa inválido" });
+  }
+
+  try {
+    const result = await pool.query(
+      "UPDATE rest_tables SET status = $1 WHERE id_table = $2 RETURNING *",
+      [status, id_table]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Mesa no encontrada" });
+    }
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error al actualizar estado de la mesa:", error);
+    res.status(500).json({ error: "No se pudo actualizar el estado de la mesa" });
+  }
+};

@@ -94,3 +94,22 @@ exports.freeTable = async (req, res) => {
     res.status(500).json({ error: "Error al liberar mesa" });
   }
 };
+
+exports.updateAvailability = async (req, res) => {
+  const { id } = req.params;
+  const { availability } = req.body;
+  try {
+    const result = await pool.query(
+      "UPDATE rest_tables SET availability = $1 WHERE id_table = $2 RETURNING *",
+      [availability, id]
+    );
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Mesa no encontrada" });
+    }
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error al actualizar disponibilidad:", error);
+    res.status(500).json({ error: "Error al actualizar disponibilidad" });
+  }
+};
+

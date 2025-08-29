@@ -1,5 +1,6 @@
 import { orderModals } from "./orderModal.js";
 import { ORDERS_API } from "./url_orders.js";
+import { TABLES_API } from "./url_orders.js";
 
 
 
@@ -94,13 +95,30 @@ export const ordersLoaders = {
         if (newStatus === "en proceso") statusTag.style.backgroundColor = "orange";
 
         await fetch(`${ORDERS_API}${order.id_order}/status`, {
-        method: "PATCH",
-        headers: {
+          method: "PATCH",
+          headers: {
             "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ status: newStatus })
+          },
+          body: JSON.stringify({ status: newStatus })
         });
 
+        if (order.id_table) {
+          let newAvailability = null;
+          if (newStatus === "en proceso") {
+            newAvailability = "occupied";
+          } else if (newStatus === "terminada" || newStatus === "cancelada") {
+            newAvailability = "available";
+          }
+          if (newAvailability) {
+            await fetch(`${TABLES_API}${order.id_table}/availability`, {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({ availability: newAvailability })
+            });
+          }
+        }
       });
 
       ordersContainer.appendChild(row);
