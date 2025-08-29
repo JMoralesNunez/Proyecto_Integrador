@@ -7,6 +7,7 @@ exports.getAllOrders = async (req, res) => {
     const result = await pool.query(`
     SELECT
     o.id_order,
+    o.id_table,
     TO_CHAR(o.order_date, 'DD/MM/YYYY HH12:MI AM') AS order_date,
     o.total_price,
     o.status,
@@ -14,7 +15,8 @@ exports.getAllOrders = async (req, res) => {
     c.phone,
     c.address AS client_address
     FROM orders o
-    LEFT JOIN clients c ON o.id_client = c.id_client;
+    LEFT JOIN clients c ON o.id_client = c.id_client
+    ORDER BY o.order_date DESC;
 `);
     res.json(result.rows);
   } catch (error) {
