@@ -31,8 +31,9 @@ exports.getNumberOrders = async (req, res) => {
     const result = await pool.query(`
     SELECT COUNT(*)
     FROM orders
-    WHERE order_date AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' >= CURRENT_DATE
-    AND order_date AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota' < CURRENT_DATE + INTERVAL '1 day';
+    WHERE order_date >= (CURRENT_DATE AT TIME ZONE 'America/Bogota')
+    AND order_date < ((CURRENT_DATE + INTERVAL '1 day') AT TIME ZONE 'America/Bogota')
+    AND status = 'terminada';
 
 `);
     res.json(result.rows);
@@ -46,9 +47,11 @@ exports.getNumberOrders = async (req, res) => {
 exports.getTotalOrders = async (req, res) => {
   try {
     const result = await pool.query(`
-    SELECT COALESCE(SUM(total_price), 0) AS total_revenue_today
-    FROM orders 
-    WHERE status = 'terminada';
+    SELECT COALESCE(SUM(total_price), 0) AS total_ingresos_today
+    FROM orders
+    WHERE order_date >= (CURRENT_DATE AT TIME ZONE 'America/Bogota')
+    AND order_date < ((CURRENT_DATE + INTERVAL '1 day') AT TIME ZONE 'America/Bogota')
+    AND status = 'terminada';
 
 `);
     res.json(result.rows);
@@ -163,3 +166,29 @@ exports.updateOrder = async (req, res) => {
     res.status(500).json({ error: "Orden no actualizada" });
   }
 };
+
+exports.updateOrderStatus = async (req, res) => {
+  const { id_order } = req.params;
+  const { status } = req.body;
+
+  if (!["terminada", "cancelada", "en proceso"].includes(status)) {
+    return res.status(400).json({ error: "Estado inválido" });
+  }
+
+  try {
+    const result = await pool.query(
+      "UPDATE orders SET status = $1 WHERE id_order = $2 RETURNING *",
+      [status, id_order]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Orden no encontrada" });
+    }
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error al actualizar estado:", error);
+    res.status(500).json({ error: "No se pudo actualizar el estado" });
+  }
+};
+

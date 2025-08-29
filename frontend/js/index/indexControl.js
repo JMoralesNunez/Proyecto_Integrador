@@ -18,13 +18,20 @@ export const summaryLoaders = {
         reservationNumber.innerText = reservationNum.total_reservations_today
     },
     async income() {
-        const income = document.getElementById("income")
-        income.innerHTML = ""
-        const res = await fetch(INCOME_API);
-        const [revenue] = await res.json()
-        income.innerText = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(revenue.total_revenue_today);
-    },
+    const income = document.getElementById("income");
+    income.innerHTML = "";
+    const res = await fetch(INCOME_API);
+    const [revenue] = await res.json();
+    income.innerText = new Intl.NumberFormat('es-CO', {
+        style: 'currency',
+        currency: 'COP',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    }).format(revenue.total_ingresos_today);
+},
+
     async orders() {
+        let back_color = "";
         const ordersContainer = document.getElementById("ordersContainer")
         ordersContainer.innerHTML = ""
         const res = await fetch(ORDERS_API);
@@ -35,6 +42,15 @@ export const summaryLoaders = {
             }
             if (order.client_name === null) {
                 order.client_name = "Cliente no registrado"
+            }
+            if (order.status == "terminada") {
+                 back_color = "green"
+            }
+            if (order.status == "cancelada") {
+                 back_color = "red"
+            }
+            if (order.status == "en proceso") {
+                 back_color = "orange"
             }
             const total_price = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(order.total_price);
             order.total_price = total_price
@@ -48,7 +64,7 @@ export const summaryLoaders = {
                     <div class="order-card-body">
                         <div class="order-id-status">
                             <h5 class="order-card-title">#${order.id_order}</h5>
-                            <span class="order-status" style="background-color: #ffd60a;">${order.status}</span>
+                            <span class="order-status" style="background-color: ${back_color};">${order.status}</span>
                         </div>
                         <p class="order-card-text">${order.client_name}</p>
                         <p class="order-card-text">Mesa: ${order.id_table}</p>
@@ -65,6 +81,7 @@ export const summaryLoaders = {
         });
     },
     async reservations() {
+         
         const reservationsContainer = document.getElementById("reservationsContainer");
         reservationsContainer.innerHTML = "";
         const res = await fetch(RESERVATIONS_API);

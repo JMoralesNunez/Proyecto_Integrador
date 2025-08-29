@@ -9,6 +9,7 @@ router.get('/:id/items', ordersController.getItemsByOrderId);
 router.get('/:id', ordersController.getOrderById);
 router.put('/:id', ordersController.updateOrder);
 router.post('/', ordersController.createOrder);
+router.patch('/:id_order/status', ordersController.updateOrderStatus);
 router.delete('/:id', ordersController.deleteOrder);
 
 module.exports = router;

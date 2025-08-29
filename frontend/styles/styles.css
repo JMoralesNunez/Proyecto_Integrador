@@ -243,8 +243,9 @@ aside {
 .order-status,
 .code-order-status {
   padding: 0.3rem 0.4rem;
-  border-radius: 15px;
+  border-radius: 5px;
   text-align: center;
+  color: white;
 }
 
 .reservations-people {
@@ -519,3 +520,4 @@ dialog#detailsModal {
     max-height: 300px;
   }
 }
+
