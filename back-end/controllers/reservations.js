@@ -7,7 +7,8 @@ exports.getAllReservations = async (req, res) => {
     const result = await pool.query(`SELECT
       r.id_reservation,
       r.status,
-      TO_CHAR(r.date_reservation, 'DD/MM/YYYY HH12:MI AM') AS date_reservation,
+      TO_CHAR(r.date_reservation, 'DD/MM/YYYY') AS date_reservation,
+      TO_CHAR(r.hour_reservation, 'HH:MM') AS hour_reservation,
       c.full_name AS client_name,
       c.phone,
       t.id_table AS table_number

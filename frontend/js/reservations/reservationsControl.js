@@ -38,6 +38,9 @@ export const reservationLoaders = {
                         <p class="reservation-data">
                             <i class="fa-solid fa-calendar-days"></i> ${reservation.date_reservation}
                         </p>
+                        <p class="reservation-data">
+                            <i class="fa-solid fa-clock"></i> ${reservation.hour_reservation}
+                        </p>
                         <p class="reservation-data">Mesa #${reservation.table_number}</p>
                     </div>
                 </div>
