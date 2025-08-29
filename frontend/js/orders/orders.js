@@ -4,7 +4,20 @@ import { orderHandlers } from "./orderHandlers.js";
 
 
 document.addEventListener("DOMContentLoaded", ()=>{
-    ordersLoaders.orders()
+    ordersLoaders.orders();
+
+    document.getElementById("searchOrder").addEventListener("input", function(){
+    const filter = this.value.toLowerCase();
+    const orders = document.querySelectorAll(".order-item");
+
+    orders.forEach(order => {
+        const client = order.querySelector(".client-name");
+        if (client) {
+            const name = client.textContent.toLowerCase();
+            order.style.display = name.includes(filter) ? "block" : "none";
+        }
+    });
+});
 })
 
 document.getElementById("closeDetailsDialog").addEventListener("click", ()=>{
