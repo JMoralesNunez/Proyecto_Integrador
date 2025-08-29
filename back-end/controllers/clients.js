@@ -30,7 +30,7 @@ exports.createClient = async (req, res) => {
   const {id_client, full_name, phone, addres } = req.body;
   try {
     const result = await pool.query(
-      "INSERT INTO clients (id_client, full_name, phone, addres) VALUES ($1, $2, $3, $4) RETURNING *",
+      "INSERT INTO clients (id_client, full_name, phone, address) VALUES ($1, $2, $3, $4) RETURNING *",
       [id_client, full_name, phone, addres]
     );
     res.status(201).json(result.rows[0]);

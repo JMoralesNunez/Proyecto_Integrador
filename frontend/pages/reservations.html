@@ -53,6 +53,7 @@
             </div>
             <div class="main-header-button">
               <button
+                id="openReservationModal"
                 type="button"
                 class="orange-btn btn"
                 data-bs-toggle="modal"
@@ -100,7 +101,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="add-reservation">Nueva reserva</h1>
+            <h1 class="modal-title fs-5" id="reservationTitle">Nueva reserva</h1>
             <p></p>
             <button
               type="button"
@@ -111,73 +112,58 @@
           </div>
           <div class="modal-body">
             <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">Cliente *</span>
+              <span class="input-group-text" >Nombre del cliente</span>
               <input
+                id="clientName"
                 type="text"
                 class="form-control"
                 aria-label="client"
-                aria-describedby="basic-addon1"
+                aria-describedby="clientName"
               />
             </div>
 
             <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">Teléfono *</span>
+              <span class="input-group-text">Teléfono del cliente</span>
               <input
+                id="clientPhone"
                 type="tel"
                 class="form-control"
                 aria-label="phone"
-                aria-describedby="basic-addon1"
+                aria-describedby="clientPhone"
               />
             </div>
 
             <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">Fecha *</span>
+              <span class="input-group-text" >Fecha</span>
               <input
+                id="date"
                 type="date"
                 class="form-control"
                 aria-label="date"
-                aria-describedby="basic-addon1"
+                aria-describedby="date"
               />
             </div>
 
             <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">Hora *</span>
+              <span class="input-group-text">Hora</span>
               <input
+                id="hour"
                 type="time"
                 class="form-control"
                 aria-label="hour"
-                aria-describedby="basic-addon1"
+                aria-describedby="hour"
               />
             </div>
 
             <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">Personas *</span>
-              <input
-                type="number"
-                class="form-control"
-                aria-label="people"
-                aria-describedby="basic-addon1"
-              />
+              <label for="orderTable" class="form-label"
+                  >Número de Mesa: </label
+                >
+              <select id="orderTable" class="form-select">
+                <option value="">-- Sin mesa --</option>
+              </select>
             </div>
 
-            <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">Mesa *</span>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Mesa 1"
-                aria-label="table"
-                aria-describedby="basic-addon1"
-              />
-            </div>
-
-            <div class="input-group">
-              <span class="input-group-text">Notas *</span>
-              <textarea
-                class="form-control"
-                aria-label="With textarea"
-              ></textarea>
-            </div>
           </div>
           <div class="modal-footer">
             <button
@@ -187,7 +173,7 @@
             >
               Cancelar
             </button>
-            <button type="button" class="btn create-btn">Crear</button>
+            <button id="createReservation" type="button" class="btn create-btn">Crear</button>
           </div>
         </div>
       </div>

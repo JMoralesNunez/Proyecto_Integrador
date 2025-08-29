@@ -16,3 +16,11 @@ document.addEventListener("DOMContentLoaded", ()=>{
     });
 });
 })
+
+document.getElementById("openReservationModal").addEventListener("click", ()=>{
+    reservationLoaders.loadTables()
+})
+
+document.getElementById("createReservation").addEventListener("click", ()=>{
+    reservationLoaders.saveReservation()
+})
