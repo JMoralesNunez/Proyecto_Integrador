@@ -5,6 +5,7 @@ let tempItems = [];
 export const orderHandlers = {
   async openOrderModal() {
     await this.loadProducts();
+    await this.loadTables();
     document.getElementById("productsSection").style.display = "none";
   },
 
@@ -29,63 +30,82 @@ export const orderHandlers = {
     }
   },
 
-  async createOrder() {
-  const status = document.getElementById("orderStatus").value;
-  const id_table_input = document.getElementById("orderTable").value;
-  const id_client = document.getElementById("orderClient").value || null;
-
-  const id_table = id_table_input === "" ? null : Number(id_table_input);
-
-  if (id_table !== null && (isNaN(id_table) || id_table < 0)) {
-    alert("Número de mesa inválido.");
-    return;
-  }
-
-  if (id_table !== null) {
+  async loadTables() {
     try {
-      const res = await fetch(`http://localhost:3001/rest_tables/${id_table}`);
-      if (!res.ok) {
-        alert("La mesa seleccionada no existe.");
-        return;
-      }
+      const res = await fetch("http://localhost:3001/rest_tables");
+      const tables = await res.json();
 
-      const table = await res.json();
-      if (table.availability !== "available") {
-        alert(`La mesa ${id_table} está "${table.availability}". Elige otra mesa.`);
-        return;
-      }
+      const tableSelect = document.getElementById("orderTable");
+      tableSelect.innerHTML = '<option value=""> Sin mesa </option>';
+
+      tables.forEach(table => {
+        const opt = document.createElement("option");
+        opt.value = table.id_table;
+        opt.textContent = `Mesa ${table.id_table} (Cap: ${table.capacity}) - ${table.availability}`;
+        tableSelect.appendChild(opt);
+      });
     } catch (error) {
-      console.error("Error al verificar la mesa:", error);
-      alert("No se pudo verificar la disponibilidad de la mesa.");
+      console.error("Error al cargar mesas:", error);
+      alert("No se pudieron cargar las mesas.");
+    }
+  },
+
+  async createOrder() {
+    const status = document.getElementById("orderStatus").value;
+    const id_table_input = document.getElementById("orderTable").value;
+
+    const id_table = id_table_input === "" ? null : Number(id_table_input);
+
+    if (id_table !== null && (isNaN(id_table) || id_table < 0)) {
+      alert("Número de mesa inválido.");
       return;
     }
-  }
-
-  try {
-    const res = await fetch("http://localhost:3001/orders", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status, id_table, id_client })
-    });
-
-    const order = await res.json();
-    currentOrderId = order.id_order;
-
-    tempItems = [];
-    totalOrder = 0;
-    document.getElementById("orderItemsTable").innerHTML = "";
-    document.getElementById("orderTotal").textContent = totalOrder;
-
-    document.getElementById("productsSection").style.display = "block";
 
     if (id_table !== null) {
-      await fetch(`http://localhost:3001/rest_tables/${id_table}/occupy`, { method: "PUT" });
+      try {
+        const res = await fetch(`http://localhost:3001/rest_tables/${id_table}`);
+        if (!res.ok) {
+          alert("La mesa seleccionada no existe.");
+          return;
+        }
+
+        const table = await res.json();
+        if (table.availability !== "available") {
+          alert(`La mesa ${id_table} está "${table.availability}". Elige otra mesa.`);
+          return;
+        }
+      } catch (error) {
+        console.error("Error al verificar la mesa:", error);
+        alert("No se pudo verificar la disponibilidad de la mesa.");
+        return;
+      }
     }
-  } catch (error) {
-    console.error("Error al crear orden:", error);
-    alert("No se pudo crear la orden.");
-  }
-},
+
+    try {
+      const res = await fetch("http://localhost:3001/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status, id_table })
+      });
+
+      const order = await res.json();
+      currentOrderId = order.id_order;
+
+      tempItems = [];
+      totalOrder = 0;
+      document.getElementById("orderItemsTable").innerHTML = "";
+      document.getElementById("orderTotal").textContent = totalOrder;
+
+      document.getElementById("productsSection").style.display = "block";
+
+      if (id_table !== null) {
+        await fetch(`http://localhost:3001/rest_tables/${id_table}/occupy`, { method: "PUT" });
+      }
+    } catch (error) {
+      console.error("Error al crear orden:", error);
+      alert("No se pudo crear la orden.");
+    }
+  },
 
   addProductTemp() {
     const id_product = document.getElementById("productSelect").value;
@@ -103,31 +123,29 @@ export const orderHandlers = {
   },
 
   renderTempItems() {
-  const tbody = document.getElementById("orderItemsTable");
-  tbody.innerHTML = "";
-  totalOrder = 0;
+    const tbody = document.getElementById("orderItemsTable");
+    tbody.innerHTML = "";
+    totalOrder = 0;
 
-  tempItems.forEach((item, index) => {
-    totalOrder += item.subtotal;
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${item.name_product}</td>
-      <td>${item.quantity}</td>
-      <td>$${item.subtotal}</td>
-      <td><button class="btn btn-sm btn-danger">❌</button></td>
-    `;
+    tempItems.forEach((item, index) => {
+      totalOrder += item.subtotal;
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${item.name_product}</td>
+        <td>${item.quantity}</td>
+        <td>$${item.subtotal}</td>
+        <td><button class="btn btn-sm btn-danger">❌</button></td>
+      `;
 
+      row.querySelector("button").addEventListener("click", () => {
+        this.removeTempItem(index);
+      });
 
-    row.querySelector("button").addEventListener("click", () => {
-      this.removeTempItem(index);
+      tbody.appendChild(row);
     });
 
-    tbody.appendChild(row);
-  });
-
-  document.getElementById("orderTotal").textContent = totalOrder;
-},
-
+    document.getElementById("orderTotal").textContent = totalOrder;
+  },
 
   removeTempItem(index) {
     tempItems.splice(index, 1);
@@ -203,5 +221,3 @@ export const orderHandlers = {
     }
   }
 };
-
-

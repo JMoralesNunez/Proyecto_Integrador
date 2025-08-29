@@ -97,3 +97,23 @@ exports.deleteReservation = async (req, res) => {
     res.status(500).json({ error: "Item de orden no eliminado" });
   }
 }   
+exports.updateReservationStatus = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  try {
+    const result = await pool.query(
+      "UPDATE reservations SET status = $1 WHERE id_reservation = $2 RETURNING *",
+      [status, id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Reserva no encontrada" });
+    }
+
+    res.status(200).json(result.rows[0]);
+  } catch (error) {
+    console.error("Error al actualizar estado de reserva:", error);
+    res.status(500).json({ error: "No se pudo actualizar el estado de la reserva" });
+  }
+};
