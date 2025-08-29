@@ -30,7 +30,7 @@ export const ordersLoaders = {
                 <div class="orders-card-details">
                     <div class="order-client-data">
                         <h5>Información del cliente</h5>
-                        <p class="order-data">${order.client_name}</p>
+                        <p class="order-data client-name">${order.client_name}</p>
                         <p class="order-data">
                         <i class="fa-solid fa-phone"></i> ${order.phone}
                         </p>

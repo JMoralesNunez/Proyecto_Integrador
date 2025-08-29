@@ -28,7 +28,7 @@ export const reservationLoaders = {
                 <div class="reservations-card-details">
                     <div class="reservation-client-data">
                         <h5>Cliente</h5>
-                        <p class="reservation-data">${reservation.client_name}</p>
+                        <p class="reservation-data client-name">${reservation.client_name}</p>
                         <p class="reservation-data">
                             <i class="fa-solid fa-phone"></i> ${reservation.phone}
                         </p>

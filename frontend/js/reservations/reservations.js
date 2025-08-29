@@ -1,5 +1,18 @@
 import { reservationLoaders } from "./reservationsControl.js"
 
 document.addEventListener("DOMContentLoaded", ()=>{
-    reservationLoaders.reservations()
+    reservationLoaders.reservations();
+
+    document.getElementById("searchReservation").addEventListener("input", function(){
+    const filter = this.value.toLowerCase();
+    const reservations = document.querySelectorAll(".reservations-card-body");
+
+    reservations.forEach(reservation => {
+        const client = reservation.querySelector(".client-name");
+        if (client) {
+            const name = client.textContent.toLowerCase();
+            reservation.style.display = name.includes(filter) ? "block" : "none";
+        }
+    });
+});
 })
