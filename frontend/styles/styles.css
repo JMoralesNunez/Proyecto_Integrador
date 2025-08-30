@@ -1,5 +1,5 @@
 :root {
-  --grey-background: #edede9;
+  --purple-background: #f4eef6;
   --orange-background: #e85d04;
   --white: #ffffff;
   --confirmation-green: #a7c957;
@@ -13,6 +13,7 @@
 * {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
 
 html,
@@ -21,10 +22,10 @@ body {
 }
 
 main {
-  background-color: var(--grey-background);
+  background-color: var(--purple-background);
   overflow-y: auto;
   height: 100%;
-  padding: 1.3rem; /* Sin espacio lateral */
+  padding: 1.3rem;
 }
 
 main, .main-content, .reservations-index-container {
@@ -32,15 +33,14 @@ main, .main-content, .reservations-index-container {
 }
 
 .reservations-card {
-  background: var(--grey-background);
+  background: var(--purple-background);
   border: none !important;
 }
-
 
 .reservation-item, .order-item {
   background: var(--white);
   border-radius: 12px;
-  box-shadow: none; /* Quita la sombra */
+  box-shadow: none;
   margin-bottom: 2rem;
   padding: 2rem 2.5rem;
   border: none !important;
@@ -54,12 +54,23 @@ main, .main-content, .reservations-index-container {
 
 aside {
   display: grid;
-  grid-template-rows: 15% 85%;
+  grid-template-rows: 1fr 3fr;
   border: 1px solid var(--grey-borders);
   padding: 1rem;
+  min-width: 220px;
 }
 
-.aside-title,
+.aside-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  width: 100%;
+  margin: 0 auto;
+  height: auto;
+  max-width: 140px;
+}
+
 .menu-title,
 .navbar {
   display: flex;
@@ -78,6 +89,7 @@ aside {
   display: flex;
   flex-direction: column;
   padding: 0.5em;
+  gap: 0.5em;
 }
 
 .fa-solid {
@@ -116,16 +128,14 @@ aside {
 .stats-numbers {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 0;
+  gap: 2rem;
   width: 100%;
   margin: 0;
   padding: 0;
   justify-items: stretch;
   align-items: stretch;
-  gap: 2rem;
 }
 
-/* Cards indicadores */
 .stats-card {
   margin: 0;
   border-radius: 0.5rem;
@@ -156,7 +166,6 @@ aside {
   text-align: center;
 }
 
-/* Cards abajo en dos columnas, ocupando todo el ancho */
 .dashboard-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -166,7 +175,6 @@ aside {
   padding: 0;
 }
 
-/* Cards del dashboard */
 .latest-orders,
 .next-reservations {
   width: 100%;
@@ -211,7 +219,7 @@ aside {
 .reservation-item,
 .order-item {
   margin-bottom: 1.5rem;
-  border-bottom: none; /* Quita el borde inferior para que se vea el fondo gris */
+  border-bottom: none;
   box-shadow: none;
   border-radius: 12px;
   padding: 2rem 2.5rem;
@@ -252,12 +260,13 @@ aside {
   border: 0.5px solid var(--grey-text);
 }
 
-/* reservations */
 .main-header-reservations,
 .main-header-orders {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .fa-plus,
@@ -292,12 +301,18 @@ aside {
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 1rem;
+  gap: 1rem;
 }
 
 .code-title {
   display: flex;
   gap: 1rem;
   justify-content: space-between;
+}
+
+.code-title-reservations{
+  display: flex;
+  gap: 1rem;
 }
 
 .code-order-status {
@@ -312,10 +327,11 @@ aside {
 }
 
 .reservations-card-details {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
   justify-content: space-between;
   padding: 0 2rem;
+  gap: 1rem;
 }
 
 .reservation-data,
@@ -326,7 +342,8 @@ aside {
 /* orders */
 .orders-card-details {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 2rem;
 }
 
 /* Menu */
@@ -394,7 +411,6 @@ dialog#detailsModal {
   max-width: 600px;
 }
 
-/* Login styles */
 .body-container {
   background: #fff;
   font-family: "Segoe UI", sans-serif;
@@ -483,24 +499,154 @@ dialog#detailsModal {
   }
 }
 
-/* Media */
+/* --- SOLO CAMBIOS PARA ORDERS --- */
+.order-status {
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  text-align: center;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1rem;
+  min-width: 100px;
+  border: none;
+}
+
+.order-status[data-status="confirmada"] {
+  background-color: var(--confirmation-green);
+}
+
+.order-status[data-status="en proceso"] {
+  background-color: var(--pending-yellow);
+  color: #444;
+}
+
+.order-status[data-status="cancelada"] {
+  background-color: var(--cancelled-red);
+}
+
+.order-status[data-status="pendiente"] {
+  background-color: var(--pending-yellow);
+  color: #444;
+}
+
+.order-status-select {
+  border-radius: 8px;
+  padding: 0.4rem 1rem;
+  font-size: 1rem;
+  border: 1px solid var(--grey-borders);
+  background: var(--grey-background);
+  color: #444;
+  font-weight: 500;
+  margin-top: 0.5rem;
+  outline: none;
+  min-width: 120px;
+  transition: border-color 0.2s;
+}
+
+.order-status-select:focus {
+  border-color: var(--orange-background);
+}
+
+.order-card {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: none;
+  margin-bottom: 1.5rem;
+  padding: 2rem 2.5rem;
+  border: 1px solid var(--grey-borders);
+}
+
+.order-card-title {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.order-row {
+  padding: 5% 5%;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.order-id-status {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.order-data.btn {
+  background: var(--orange-background);
+  color: #fff;
+  border-radius: 8px;
+  padding: 0.4rem 1rem;
+  font-weight: 500;
+  font-size: 1rem;
+  border: none;
+  transition: background 0.2s;
+  margin-top: 1rem;
+}
+.order-data.btn:hover {
+  background: var(--orange-button-hover);
+}
+
+.order-data i {
+  margin-right: 0.5rem;
+  color: #8c7d73;
+}
+
+.order-data {
+  color: #444;
+  font-size: 1rem;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1200px) {
+  .index-container {
+    grid-template-columns: 1fr 3fr;
+  }
+  aside {
+    min-width: 160px;
+    padding: 0.5rem;
+  }
+  .main-content {
+    margin: 1rem 0 0 0;
+    gap: 1rem;
+  }
+  .dashboard-section,
+  .tables {
+    gap: 1rem;
+  }
+}
 
 @media (max-width: 900px) {
+  .index-container {
+    grid-template-columns: 1fr 2fr;
+  }
+  aside {
+    min-width: 120px;
+    padding: 0.3rem;
+  }
   .main-content {
-    max-width: 100%;
-    gap: 1rem;
-    margin-top: 1rem;
+    margin: 0.5rem 0 0 0;
+    gap: 0.5rem;
   }
   .stats-numbers {
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
   }
-  .dashboard-section {
+  .dashboard-section,
+  .tables {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
   .latest-orders,
   .next-reservations {
+    padding: 1rem;
+  }
+  .order-card,
+  .reservations-card,
+  .reservations-card-index {
     padding: 1rem;
   }
 }
@@ -509,15 +655,92 @@ dialog#detailsModal {
   .index-container {
     grid-template-columns: 1fr;
   }
+  aside {
+    min-width: 100px;
+    padding: 0.2rem;
+    border: none;
+  }
+  .main-content {
+    margin: 0.2rem 0 0 0;
+    gap: 0.3rem;
+  }
   .stats-numbers {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 1rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    gap: 0.5rem;
     align-items: center;
     justify-content: center;
   }
   .stats-card {
     max-height: 300px;
+    padding: 2% 4%;
+  }
+  .dashboard-section,
+  .tables {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .latest-orders,
+  .next-reservations {
+    padding: 0.5rem;
+    border-radius: 8px;
+  }
+  .order-card,
+  .reservations-card,
+  .reservations-card-index {
+    padding: 0.5rem;
+    border-radius: 8px;
+  }
+  .main-header,
+  .main-header-reservations,
+  .main-header-orders {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+  }
+  .aside-title {
+    max-width: 80px;
+  }
+  .menu-title {
+    font-size: 1rem;
   }
 }
 
+@media (max-width: 500px) {
+  .main-content {
+    margin: 0;
+    gap: 0.1rem;
+  }
+  .stats-card {
+    padding: 1% 2%;
+    font-size: 0.9rem;
+  }
+  .order-card,
+  .reservations-card,
+  .reservations-card-index {
+    padding: 0.2rem;
+    font-size: 0.9rem;
+  }
+  .latest-orders,
+  .next-reservations {
+    padding: 0.2rem;
+    font-size: 0.9rem;
+  }
+  .main-header,
+  .main-header-reservations,
+  .main-header-orders {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.9rem;
+  }
+  .aside-title {
+    max-width: 50px;
+  }
+  .menu-title {
+    font-size: 0.8rem;
+  }
+  .btn,
+  .orange-btn,
+  .create-btn {
+    font-size: 0.9rem;
+    padding: 0.3rem 0.6rem;
+  }
+}
