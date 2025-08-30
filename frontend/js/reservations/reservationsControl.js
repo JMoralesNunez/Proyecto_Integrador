@@ -68,6 +68,7 @@ export const reservationLoaders = {
         });
       });
 
+
       reservationsContainer.appendChild(row);
     });
   },

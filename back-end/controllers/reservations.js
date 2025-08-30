@@ -8,7 +8,7 @@ exports.getAllReservations = async (req, res) => {
       r.id_reservation,
       r.status,
       TO_CHAR(r.date_reservation, 'DD/MM/YYYY') AS date_reservation,
-      TO_CHAR(r.hour_reservation, 'HH:MM') AS hour_reservation,
+      TO_CHAR(r.hour_reservation, 'HH24:MI') AS hour_reservation,
       c.full_name AS client_name,
       c.phone,
       t.id_table AS table_number
