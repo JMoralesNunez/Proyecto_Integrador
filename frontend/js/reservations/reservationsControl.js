@@ -76,6 +76,7 @@ export const reservationLoaders = {
     const hour = document.getElementById("hour").value;
     const tableSelect = document.getElementById("orderTable").value;
     await this.createClient()
+    console.log(hour);
     try {
       const res = await fetch(RESERVATIONS_API, {
         "method": 'POST',

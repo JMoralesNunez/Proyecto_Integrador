@@ -1,108 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Ordexx</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://kit.fontawesome.com/ea4c7975d5.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="/frontend/styles/styles.css" />
-  </head>
-  <body>
-    <div class="index-container">
-      <aside>
-         <img
-        class="aside-title"
-          src="../images/logo.png"
-          alt="Girl in a jacket"
-        />
-        <div class="menu gap-2">
-          <h6 class="menu-title">Gestión</h6>
-          <a class="btn" href="./index.html" role="button"
-            ><i class="fa-solid fa-chart-line" style="color: #8c7d73"></i>
-            Resumen</a
-          >
-          <a class="btn" href="./reservations.html" role="button"
-            ><i class="fa-solid fa-calendar-days" style="color: #8c7d73"></i>
-            Reservas
-          </a>
-          <a class="btn" href="./orders.html" role="button"
-            ><i class="fa-solid fa-bag-shopping" style="color: #8c7d73"></i>
-            Pedidos
-          </a>
-          <a class="btn" href="./menu.html" role="button"
-            ><i class="fa-solid fa-utensils" style="color: #8c7d73"></i> Menu
-          </a>
-          <button id="logoutBtn" type="button" class="btn">
-            Salir
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ordexx</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous" />
+  <script src="https://kit.fontawesome.com/ea4c7975d5.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/frontend/styles/styles.css" />
+</head>
+
+<body>
+  <div class="index-container">
+    <aside>
+      <img class="aside-title" src="../images/logo.png" alt="Girl in a jacket" />
+      <div class="menu gap-2">
+        <h6 class="menu-title">Gestión</h6>
+        <a class="btn" href="../index.html" role="button"><i class="fa-solid fa-chart-line" style="color: #8c7d73"></i>
+          Resumen</a>
+        <a class="btn" href="./reservations.html" role="button"><i class="fa-solid fa-calendar-days"
+            style="color: #8c7d73"></i>
+          Reservas
+        </a>
+        <a class="btn" href="./orders.html" role="button"><i class="fa-solid fa-bag-shopping"
+            style="color: #8c7d73"></i>
+          Pedidos
+        </a>
+        <a class="btn" href="./menu.html" role="button"><i class="fa-solid fa-utensils" style="color: #8c7d73"></i> Menu
+        </a>
+        <button id="logoutBtn" type="button" class="btn">
+          Salir
         </button>
-        </div>
-      </aside>
-      <div class="principal-container">
-        <nav class="navbar">
-          <h4>Dashboard - Ordexx</h4>
-        </nav>
-        <main>
-          <div class="main-header-reservations">
-            <div class="main-header-orders">
-              <div class="main-header-content">
-                <h1 class="main-title">Gestión de pedidos</h1>
-                <h6 class="main-subtitle">
-                  Administra todos los pedidos del restaurante
-                </h6>
-              </div>
-            </div>
-            <div class="main-header-button">
-              <button
-                type="button"
-                class="btn orange-btn"
-                data-bs-toggle="modal"
-                data-bs-target="#orderModal"
-              >
-                <i class="fa-solid fa-plus"></i>
-                Nueva orden
-              </button>
+      </div>
+    </aside>
+    <div class="principal-container">
+      <nav class="navbar">
+        <h4>Dashboard - Ordexx</h4>
+      </nav>
+      <main>
+        <div class="main-header-reservations">
+          <div class="main-header-orders">
+            <div class="main-header-content">
+              <h1 class="main-title">Gestión de pedidos</h1>
+              <h6 class="main-subtitle">
+                Administra todos los pedidos del restaurante
+              </h6>
             </div>
           </div>
-          <div class="main-content">
-            <div class="orders-card-filter card">
-              <div class="orders-card-body card-body">
-                <h4>Filtros</h4>
-                <div class="input-group mb-3">
-                  <input
-                    type="text"
-                    class="form-control"
-                    aria-label=""
-                    placeholder="Buscar por nombre del cliente"
-                    aria-describedby="inputGroup-sizing-lg"
-                    id="searchOrder"
-                  />
-                  <button type="button" class="btn create-btn">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                  </button>
-                </div>
+          <div class="main-header-button">
+            <button type="button" class="btn orange-btn" data-bs-toggle="modal" data-bs-target="#orderModal">
+              <i class="fa-solid fa-plus"></i>
+              Nueva orden
+            </button>
+          </div>
+        </div>
+        <div class="main-content">
+          <div class="orders-card-filter card">
+            <div class="orders-card-body card-body">
+              <h4>Filtros</h4>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" aria-label="" placeholder="Buscar por nombre del cliente"
+                  aria-describedby="inputGroup-sizing-lg" id="searchOrder" />
+                <button type="button" class="btn create-btn">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
               </div>
             </div>
-            <div id="ordersContainer" class="">
-              <div class="card-body order-item card">
-                <div class="orders-card-header">
-                  <h4 class="code-title">
-                    Código pedido
-                    <p
-                      class="code-order-status"
-                      style="background-color: #a7c957"
-                    >
-                      Estado
-                    </p>
-                  </h4>
+          </div>
+          <div id="ordersContainer" class="">
+            <div class="card-body order-item card">
+              <div class="orders-card-header">
+                <h4 class="code-title">
+                  Código pedido
+                  <p class="code-order-status" style="background-color: #a7c957">
+                    Estado
+                  </p>
+                </h4>
 
                 <div class="order-price">
                   <h4 class="price">Precio</h4>
@@ -230,25 +204,20 @@
           </div>
         </div>
 
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Cerrar
-            </button>
-          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cerrar
+          </button>
         </div>
       </div>
     </div>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script type="module" src="../js/orders/orders.js"></script>
-    <script src="../js/guardian.js"></script>
-  </body>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script type="module" src="../js/orders/orders.js"></script>
+  <script src="../js/guardian.js"></script>
+</body>
+
 </html>
