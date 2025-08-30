@@ -26,7 +26,11 @@ export const orderHandlers = {
       });
     } catch (error) {
       console.error("Error al cargar productos:", error);
-      alert("No se pudieron cargar los productos.");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudieron cargar los productos.",
+      });
     }
   },
 
@@ -46,7 +50,11 @@ export const orderHandlers = {
       });
     } catch (error) {
       console.error("Error al cargar mesas:", error);
-      alert("No se pudieron cargar las mesas.");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudieron cargar las mesas.",
+      });
     }
   },
 
@@ -57,7 +65,11 @@ export const orderHandlers = {
     const id_table = id_table_input === "" ? null : Number(id_table_input);
 
     if (id_table !== null && (isNaN(id_table) || id_table < 0)) {
-      alert("Número de mesa inválido.");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Número de mesa inválido.",
+      });
       return;
     }
 
@@ -65,18 +77,30 @@ export const orderHandlers = {
       try {
         const res = await fetch(`http://localhost:3001/rest_tables/${id_table}`);
         if (!res.ok) {
-          alert("La mesa seleccionada no existe.");
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "La mesa seleccionada no existe.",
+          });
           return;
         }
 
         const table = await res.json();
         if (table.availability !== "available") {
-          alert(`La mesa ${id_table} está "${table.availability}". Elige otra mesa.`);
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: `La mesa ${id_table} está "${table.availability}". Elige otra mesa.`,
+          });
           return;
         }
       } catch (error) {
         console.error("Error al verificar la mesa:", error);
-        alert("No se pudo verificar la disponibilidad de la mesa.");
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "No se pudo verificar la disponibilidad de la mesa."
+        });
         return;
       }
     }
@@ -103,7 +127,11 @@ export const orderHandlers = {
       }
     } catch (error) {
       console.error("Error al crear orden:", error);
-      alert("No se pudo crear la orden.");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo crear la orden.",
+      });
     }
   },
 
@@ -171,8 +199,11 @@ export const orderHandlers = {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ total_price: totalOrder })
       });
-
-      alert("Orden guardada con éxito");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo guardar la orden.",
+      });
 
       const modalEl = document.getElementById("orderModal");
       const modal = bootstrap.Modal.getInstance(modalEl);
@@ -183,7 +214,11 @@ export const orderHandlers = {
       totalOrder = 0;
     } catch (error) {
       console.error("Error al guardar orden:", error);
-      alert("No se pudo guardar la orden.");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo guardar la orden.",
+      });
     }
   },
 
@@ -203,8 +238,11 @@ export const orderHandlers = {
       if (id_table) {
         await fetch(`http://localhost:3001/rest_tables/${id_table}/free`, { method: "PUT" });
       }
-
-      alert("Orden cancelada");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Orden cancelada",
+      });
 
       currentOrderId = null;
       tempItems = [];
@@ -217,7 +255,11 @@ export const orderHandlers = {
       modal.hide();
     } catch (error) {
       console.error("Error al cancelar orden:", error);
-      alert("No se pudo cancelar la orden.");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo cancelar la orden.",
+      });
     }
   }
 };

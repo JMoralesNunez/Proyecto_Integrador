@@ -19,6 +19,7 @@ export const ordersLoaders = {
         order.client_name = "Cliente no registrado";
         order.phone = "No registrado";
       }
+
       if (order.status == "terminada") {
         back_color = "green";
       }
@@ -27,6 +28,11 @@ export const ordersLoaders = {
       }
       if (order.status == "en proceso") {
         back_color = "orange";
+      }
+      if (order.id_table === null) {
+        var tablee = "No asignada";
+      } else {
+        var tablee = order.id_table;
       }
 
       const total_price = new Intl.NumberFormat("es-CO", {
@@ -43,20 +49,16 @@ export const ordersLoaders = {
         <div class="orders-card-header">
           <h4 class="code-title">
             <p>#${order.id_order}</p>
-            <span class="code-order-status" style="background-color: ${back_color}; margin-bottom: 0;">
+            <p class="code-order-status" style="background-color: ${back_color};">
               ${order.status}
-            </span>
+            </p>
           </h4>
-          <div class="order-price">
-            <h4 class="price" style="margin-bottom: 0.5rem;">${order.total_price}</h4>
-          </div>
-          <div class="order-status-select-row" style="width: 100%; display: flex; justify-content: flex-end;">
-            <select class="code-order-status-select">
+          
+          <select class="form-select code-order-status-select">
               <option value="cancelada" ${order.status === "cancelada" ? "selected" : ""}>Cancelada</option>
               <option value="en proceso" ${order.status === "en proceso" ? "selected" : ""}>En proceso</option>
               <option value="terminada" ${order.status === "terminada" ? "selected" : ""}>Terminada</option>
-            </select>
-          </div>
+            </select>  
         </div>
         <div class="orders-card-details">
           <div class="order-client-data">
@@ -71,7 +73,12 @@ export const ordersLoaders = {
             <p class="order-data">
               <p class="order-data"><i class="fa-solid fa-map-pin"></i> ${order.client_address}</p>
               <i class="fa-solid fa-calendar-days"></i> ${order.order_date}
+              <p class="order-card-text"> Mesa: ${tablee}</p>
             </p>
+            
+          </div>
+          <div class="order-price">
+            <h4 class="price" style="margin-bottom: 0.5rem;">${order.total_price}</h4>
           </div>
         </div>
       `;
@@ -109,6 +116,8 @@ export const ordersLoaders = {
           } else if (newStatus === "terminada" || newStatus === "cancelada") {
             newAvailability = "available";
           }
+
+
           if (newAvailability) {
             await fetch(`${TABLES_API}${order.id_table}/availability`, {
               method: "PATCH",

@@ -7,3 +7,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
     summaryLoaders.orders()
     summaryLoaders.reservations()
 })
+
+document.getElementById("logoutBtn").addEventListener("click", ()=>{
+    sessionStorage.clear()
+    window.location.href = "/frontend/pages/login.html"
+    
+})
