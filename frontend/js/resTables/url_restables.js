@@ -1,0 +1,1 @@
+export const URL_REST_TABLES = "http://localhost:3001/rest_tables/";
