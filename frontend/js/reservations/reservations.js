@@ -24,3 +24,8 @@ document.getElementById("openReservationModal").addEventListener("click", ()=>{
 document.getElementById("createReservation").addEventListener("click", ()=>{
     reservationLoaders.saveReservation()
 })
+
+document.getElementById("logoutBtn").addEventListener("click", ()=>{
+    sessionStorage.clear()
+    window.location.href = "/frontend/pages/login.html"
+})

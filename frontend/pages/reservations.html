@@ -41,6 +41,9 @@
           <a class="btn" href="./menu.html" role="button"
             ><i class="fa-solid fa-utensils" style="color: #8c7d73"></i> Menu
           </a>
+          <button id="logoutBtn" type="button" class="btn">
+            Salir
+        </button>
         </div>
       </aside>
       <div class="principal-container">
@@ -94,100 +97,59 @@
       </div>
     </div>
 
-    <!-- modal -->
-    <div
-      class="modal fade"
-      id="add-reservation"
-      tabindex="-1"
-      aria-labelledby="add-reservation"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="reservationTitle">Nueva reserva</h1>
-            <p></p>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+  <!-- modal -->
+  <div class="modal fade" id="add-reservation" tabindex="-1" aria-labelledby="add-reservation" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="reservationTitle">Nueva reserva</h1>
+          <p></p>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="input-group mb-3">
+            <span class="input-group-text">Nombre del cliente</span>
+            <input id="clientName" type="text" class="form-control" aria-label="client" aria-describedby="clientName" />
           </div>
-          <div class="modal-body">
-            <div class="input-group mb-3">
-              <span class="input-group-text" >Nombre del cliente</span>
-              <input
-                id="clientName"
-                type="text"
-                class="form-control"
-                aria-label="client"
-                aria-describedby="clientName"
-              />
-            </div>
 
-            <div class="input-group mb-3">
-              <span class="input-group-text">Teléfono del cliente</span>
-              <input
-                id="clientPhone"
-                type="tel"
-                class="form-control"
-                aria-label="phone"
-                aria-describedby="clientPhone"
-              />
-            </div>
-
-            <div class="input-group mb-3">
-              <span class="input-group-text" >Fecha</span>
-              <input
-                id="date"
-                type="date"
-                class="form-control"
-                aria-label="date"
-                aria-describedby="date"
-              />
-            </div>
-
-            <div class="input-group mb-3">
-              <span class="input-group-text">Hora</span>
-              <input
-                id="hour"
-                type="time"
-                class="form-control"
-                aria-label="hour"
-                aria-describedby="hour"
-              />
-            </div>
-
-            <div class="input-group mb-3">
-              <label for="orderTable" class="form-label"
-                  >Número de Mesa: </label
-                >
-              <select id="orderTable" class="form-select">
-                <option value="">-- Sin mesa --</option>
-              </select>
-            </div>
-
+          <div class="input-group mb-3">
+            <span class="input-group-text">Teléfono del cliente</span>
+            <input id="clientPhone" type="tel" class="form-control" aria-label="phone" aria-describedby="clientPhone" />
           </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Cancelar
-            </button>
-            <button id="createReservation" type="button" class="btn create-btn">Crear</button>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text">Fecha</span>
+            <input id="date" type="date" class="form-control" aria-label="date" aria-describedby="date" />
           </div>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text">Hora</span>
+            <input id="hour" type="time" class="form-control" aria-label="hour" aria-describedby="hour" />
+          </div>
+
+          <div class="input-group mb-3">
+            <label for="orderTable" class="form-label">Número de Mesa: </label>
+            <select id="orderTable" class="form-select">
+              <option value="">-- Sin mesa --</option>
+            </select>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancelar
+          </button>
+          <button id="createReservation" type="button" class="btn create-btn">Crear</button>
         </div>
       </div>
     </div>
+  </div>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-      crossorigin="anonymous"
-    ></script>
-    <script type="module" src="../js/reservations/reservations.js"></script>
-  </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+    crossorigin="anonymous"></script>
+  <script type="module" src="../js/reservations/reservations.js"></script>
+  <script src="../js/guardian.js"></script>
+</body>
+
 </html>

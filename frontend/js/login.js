@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (user) {
                 alert("¡Login exitoso!");
                 sessionStorage.setItem("user", "true");
-                window.location = "../pages/index.html";
+                window.location = "../index.html";
             } else {
                 alert("Credenciales incorrectas");
             }

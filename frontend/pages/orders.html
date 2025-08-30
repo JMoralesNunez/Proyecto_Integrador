@@ -41,6 +41,9 @@
           <a class="btn" href="./menu.html" role="button"
             ><i class="fa-solid fa-utensils" style="color: #8c7d73"></i> Menu
           </a>
+          <button id="logoutBtn" type="button" class="btn">
+            Salir
+        </button>
         </div>
       </aside>
       <div class="principal-container">
@@ -101,166 +104,131 @@
                     </p>
                   </h4>
 
-                  <div class="order-price">
-                    <h4 class="price">Precio</h4>
-                  </div>
-                </div>
-                <div class="orders-card-details">
-                  <div class="order-client-data">
-                    <h5>Información del cliente</h5>
-                    <p class="order-data">Nombre cliente</p>
-                    <p class="order-data">
-                      <i class="fa-solid fa-phone"></i> Teléfono
-                    </p>
-                  </div>
-                  <div class="order-details">
-                    <h5>Detalles del pedido</h5>
-                    <p class="order-data">
-                      <i class="fa-solid fa-calendar-days"></i> Fecha
-                    </p>
-                    <button class="order-data btn btn-info orange-btn">
-                      Detalles
-                    </button>
-                  </div>
+                <div class="order-price">
+                  <h4 class="price">Precio</h4>
                 </div>
               </div>
-            </div>
-          </div>
-        </main>
-      </div>
-    </div>
-    <dialog id="detailsModal" class="container w-50 rounded-3 border-0">
-      <h4 class="code-title"></h4>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Cantidad</th>
-            <th scope="col">Producto</th>
-            <th scope="col">Total</th>
-          </tr>
-        </thead>
-        <tbody id="detailsTable"></tbody>
-      </table>
-      <div class="actions col-12 text-center mt-3">
-        <button type="button" id="closeDetailsDialog" class="btn btn-danger">
-          Cerrar
-        </button>
-      </div>
-    </dialog>
-    <div
-      class="modal fade"
-      id="orderModal"
-      tabindex="-1"
-      aria-labelledby="orderModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="orderModalLabel">Crear Nueva Orden</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Cerrar"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form id="orderForm">
-              <div class="mb-3">
-                <label for="orderStatus" class="form-label">Estado:</label>
-                <select id="orderStatus" class="form-select">
-                  <option value="en proceso">En Proceso</option>
-                  <option value="terminada">Terminada</option>
-                  <option value="cancelada">Cancelada</option>
-                </select>
-              </div>
-
-              <div class="mb-3">
-                <label for="orderTable" class="form-label"
-                  >Número de Mesa:</label
-                >
-              <select id="orderTable" class="form-select">
-              <option value="">-- Sin mesa --</option>
-              </select>
-              </div>
-
-              
-              <button type="button" class="btn btn-success" id="btnCreateOrder">
-                Crear Orden
-              </button>
-            </form>
-
-            <hr />
-
-            <div id="productsSection" style="display: none">
-              <h5>Agregar Productos</h5>
-
-              <div class="row g-3 align-items-center">
-                <div class="col-auto">
-                  <label for="productSelect" class="col-form-label"
-                    >Producto:</label
-                  >
-                  <select
-                    id="productSelect"
-                    class="form-select"
-                    style="min-width: 300px"
-                  ></select>
+              <div class="orders-card-details">
+                <div class="order-client-data">
+                  <h5>Información del cliente</h5>
+                  <p class="order-data">Nombre cliente</p>
+                  <p class="order-data">
+                    <i class="fa-solid fa-phone"></i> Teléfono
+                  </p>
                 </div>
-
-                <div class="col-auto">
-                  <label for="productQuantity" class="col-form-label"
-                    >Cantidad:</label
-                  >
-                  <input
-                    type="number"
-                    id="productQuantity"
-                    class="form-control"
-                    value="1"
-                    min="1"
-                  />
-                </div>
-
-                <div class="col-auto align-self-end">
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    id="btnAddProduct"
-                  >
-                    Agregar Producto
+                <div class="order-details">
+                  <h5>Detalles del pedido</h5>
+                  <p class="order-data">
+                    <i class="fa-solid fa-calendar-days"></i> Fecha
+                  </p>
+                  <button class="order-data btn btn-info orange-btn">
+                    Detalles
                   </button>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <dialog id="detailsModal" class="container w-50 rounded-3 border-0">
+    <h4 class="code-title"></h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Producto</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+      <tbody id="detailsTable"></tbody>
+    </table>
+    <div class="actions col-12 text-center mt-3">
+      <button type="button" id="closeDetailsDialog" class="btn btn-danger">
+        Cerrar
+      </button>
+    </div>
+  </dialog>
+  <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="orderModalLabel">Crear Nueva Orden</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <form id="orderForm">
+            <div class="mb-3">
+              <label for="orderStatus" class="form-label">Estado:</label>
+              <select id="orderStatus" class="form-select">
+                <option value="en proceso">En Proceso</option>
+                <option value="terminada">Terminada</option>
+                <option value="cancelada">Cancelada</option>
+              </select>
+            </div>
 
-              <br />
+            <div class="mb-3">
+              <label for="orderTable" class="form-label">Número de Mesa:</label>
+              <select id="orderTable" class="form-select">
+                <option value="">-- Sin mesa --</option>
+              </select>
+            </div>
 
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>Producto</th>
-                    <th>Cantidad</th>
-                    <th>Subtotal</th>
-                    <th>Acción</th>
-                  </tr>
-                </thead>
-                <tbody id="orderItemsTable"></tbody>
-              </table>
-              <h5>Total: $<span id="orderTotal">0</span></h5>
 
-              <div class="d-flex justify-content-between mt-3">
-                <button type="button" class="btn btn-success" id="btnSaveOrder">
-                  Guardar Pedido
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-danger"
-                  id="btnCancelOrder"
-                >
-                  Cancelar Pedido
+            <button type="button" class="btn btn-success" id="btnCreateOrder">
+              Crear Orden
+            </button>
+          </form>
+
+          <hr />
+
+          <div id="productsSection" style="display: none">
+            <h5>Agregar Productos</h5>
+
+            <div class="row g-3 align-items-center">
+              <div class="col-auto">
+                <label for="productSelect" class="col-form-label">Producto:</label>
+                <select id="productSelect" class="form-select" style="min-width: 300px"></select>
+              </div>
+
+              <div class="col-auto">
+                <label for="productQuantity" class="col-form-label">Cantidad:</label>
+                <input type="number" id="productQuantity" class="form-control" value="1" min="1" />
+              </div>
+
+              <div class="col-auto align-self-end">
+                <button type="button" class="btn btn-primary" id="btnAddProduct">
+                  Agregar Producto
                 </button>
               </div>
             </div>
+
+            <br />
+
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Cantidad</th>
+                  <th>Subtotal</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody id="orderItemsTable"></tbody>
+            </table>
+            <h5>Total: $<span id="orderTotal">0</span></h5>
+
+            <div class="d-flex justify-content-between mt-3">
+              <button type="button" class="btn btn-success" id="btnSaveOrder">
+                Guardar Pedido
+              </button>
+              <button type="button" class="btn btn-danger" id="btnCancelOrder">
+                Cancelar Pedido
+              </button>
+            </div>
           </div>
+        </div>
 
           <div class="modal-footer">
             <button
@@ -281,5 +249,6 @@
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module" src="../js/orders/orders.js"></script>
+    <script src="../js/guardian.js"></script>
   </body>
 </html>
