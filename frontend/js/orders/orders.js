@@ -42,3 +42,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnCancelOrder = document.getElementById("btnCancelOrder");
   if (btnCancelOrder) btnCancelOrder.addEventListener("click", () => orderHandlers.cancelOrder());
 });
+
+document.getElementById("logoutBtn").addEventListener("click", ()=>{
+    sessionStorage.clear()
+    window.location.href = "/frontend/pages/login.html"
+    
+})

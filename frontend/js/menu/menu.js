@@ -2,19 +2,25 @@ import { menuController } from "./menuControl.js";
 import { menuModal } from "./menuModals.js";
 
 
-document.addEventListener("DOMContentLoaded", ()=>{
+document.addEventListener("DOMContentLoaded", () => {
     menuController.load()
 })
 
-document.getElementById("addProduct").addEventListener("click", (e)=>{
+document.getElementById("addProduct").addEventListener("click", (e) => {
     e.preventDefault()
     menuModal.open()
 });
 
-document.getElementById("closeMenuDialog").addEventListener("click", ()=>{
+document.getElementById("closeMenuDialog").addEventListener("click", () => {
     menuModal.close()
 });
 
-document.getElementById("saveMenuChanges").addEventListener("click", ()=>{
+document.getElementById("saveMenuChanges").addEventListener("click", () => {
     menuController.save()
 });
+
+document.getElementById("logoutBtn").addEventListener("click", ()=>{
+    sessionStorage.clear()
+    window.location.href = "/frontend/pages/login.html"
+    
+})

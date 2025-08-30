@@ -21,8 +21,8 @@
     <div class="index-container">
       <aside>
         <img
-          class="aside-title"
-          src="../images/logo.png"
+        class="aside-title"
+          src="./images/logo.png"
           alt="Girl in a jacket"
         />
         <div class="menu gap-2">
@@ -30,17 +30,20 @@
           <a class="btn" href="./index.html" role="button"
             ><i class="fa-solid fa-chart-line"></i> Resumen</a
           >
-          <a class="btn" href="./reservations.html" role="button"
+          <a class="btn" href="./pages/reservations.html" role="button"
             ><i class="fa-solid fa-calendar-days"></i>
             Reservas
           </a>
-          <a class="btn" href="./orders.html" role="button"
+          <a class="btn" href="./pages/orders.html" role="button"
             ><i class="fa-solid fa-bag-shopping"></i>
             Pedidos
           </a>
-          <a class="btn" href="./menu.html" role="button"
+          <a class="btn" href="./pages/menu.html" role="button"
             ><i class="fa-solid fa-utensils"></i> Menu
           </a>
+          <button id="logoutBtn" type="button" class="btn">
+            Salir
+          </button>
         </div>
       </aside>
       <div class="principal-container">
@@ -164,7 +167,8 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script type="module" src="../js/index/index.js"></script>
-    <!-- <script src = "./../js/guardian.js"></script> -->
+    <script type="module" src="./js/index/index.js"></script>
+    <!-- <script src = "./js/guardian.js"></script> -->
+    <script type="module" src="./js/resTables/restables.js"></script>
   </body>
 </html>
