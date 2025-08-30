@@ -37,9 +37,7 @@ export const summaryLoaders = {
         const res = await fetch(ORDERS_API);
         const orders = await res.json();
         orders.forEach(order => {
-            if (order.id_table === null) {
-                order.id_table = "sin asignar"
-            }
+            
             if (order.client_name === null) {
                 order.client_name = "Cliente no registrado"
             }
@@ -52,15 +50,20 @@ export const summaryLoaders = {
             if (order.status == "en proceso") {
                  back_color = "orange"
             }
+            if(order.id_table === null){
+                order.id_table = "no asignada"
+            }
+            
+
             const total_price = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(order.total_price);
             order.total_price = total_price
 
             const row = document.createElement("div")
             row.className = "order-table-body"
             row.innerHTML = `
-        <div class="card mb-3 order-card" style="max-width: 540px">
-            <div class="row order-row">
-                <div class="col-md-8">
+            <div class="card mb-3 order-card" style="max-width: 540px">
+                <div class="row order-row">
+                    <div class="col-md-8">
                     <div class="order-card-body">
                         <div class="order-id-status">
                             <h5 class="order-card-title">#${order.id_order}</h5>
