@@ -17,11 +17,27 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
             if (user) {
-                alert("¡Login exitoso!");
+                Swal.fire({
+                    title: '¡Éxito!',
+                    text: 'Has ingresado correctamente',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    iconColor: '#e2711d',
+                    timer: 2000,
+                    timerProgressBar: true
+                }).then((result) => {
                 sessionStorage.setItem("user", "true");
                 window.location = "../index.html";
+                });
+
             } else {
-                alert("Credenciales incorrectas");
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Credenciales incorrectas',
+                    icon: 'error',
+                    confirmButtonText: 'Intentar de nuevo',
+                    confirmButtonColor: '#dc3545'
+                });
             }
         } catch (error) {
             console.error("Error en el login:", error);
