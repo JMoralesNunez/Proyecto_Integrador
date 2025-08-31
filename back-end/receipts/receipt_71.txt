@@ -1,0 +1,16 @@
+
+ORDEXX
+------------------------
+Factura #71
+Cliente: Angélica Cuervo
+Tel: 3003009876
+Dirección: Calle cc
+Fecha: 31/08/2025 01:34 AM
+------------------------
+Producto         Cant  Precio
+Pizza Margarita   1     $ 25.000
+Sopa de Tomate    1     $ 12.000
+Limonada Natural  1      $ 6.000
+Postre de Chocola…3      $ 9.000
+------------------------
+Total:                 $ 87.000

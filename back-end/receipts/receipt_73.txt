@@ -1,0 +1,13 @@
+
+ORDEXX
+------------------------
+Factura #73
+Cliente: Jhon Rojas
+Tel: 3124685300
+Dirección: calle 63
+Fecha: 31/08/2025 12:03 PM
+------------------------
+Producto         Cant  Precio
+Pizza Margarita   2     $ 25.000
+------------------------
+Total:                 $ 55.000
