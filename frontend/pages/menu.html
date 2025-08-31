@@ -1,99 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ordexx</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/ea4c7975d5.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="/frontend/styles/styles.css" />
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ordexx</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous" />
-  <script src="https://kit.fontawesome.com/ea4c7975d5.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/frontend/styles/styles.css" />
-</head>
-
-<body>
-  <div class="index-container">
-    <aside>
-      <img class="aside-title" src="../images/logo.png" alt="Girl in a jacket" />
-      <div class="menu gap-2">
-        <h6 class="menu-title">Gestión</h6>
-        <a class="btn" href="../index.html" role="button"><i class="fa-solid fa-chart-line" style="color: #8c7d73"></i>
-          Resumen</a>
-        <a class="btn" href="./reservations.html" role="button"><i class="fa-solid fa-calendar-days"
-            style="color: #8c7d73"></i>
-          Reservas
+  <body>
+    <div class="index-container">
+      <aside>
+        <img
+          class="aside-title"
+          src="../images/logo.png"
+          alt="Girl in a jacket"
+        />
+        <div class="menu gap-2">
+          <h6 class="menu-title">Gestión</h6>
+          <a class="btn" href="../index.html" role="button"
+            ><i class="fa-solid fa-chart-line" style="color: #8c7d73"></i>
+            Resumen</a
+          >
+          <a class="btn" href="./reservations.html" role="button"
+            ><i class="fa-solid fa-calendar-days" style="color: #8c7d73"></i>
+            Reservas
+          </a>
+          <a class="btn" href="./orders.html" role="button"
+            ><i class="fa-solid fa-bag-shopping" style="color: #8c7d73"></i>
+            Pedidos
+          </a>
+          <a class="btn active" href="./menu.html" role="button"
+            ><i class="fa-solid fa-utensils" style="color: #8c7d73"></i> Menu
+          </a>
+          <button id="logoutBtn" type="button" class="btn">Salir</button>
+        </div>
+      </aside>
+      <div class="principal-container">
+        <nav class="navbar">
+          <h4>Dashboard - Ordexx</h4>
+        </nav>
+        <main>
+          <div class="main-header">
+            <h1 class="main-title">Gestión del menú</h1>
+            <h6 class="main-subtitle">Administra tu menú</h6>
+            <button id="addProduct" class="btn orange-btn">
+              + Añadir plato
+            </button>
+          </div>
+          <div id="menuContainer" class="menu_content">
+            <article class="content_item">
+              <h2 class="item_name">Bandeja Paisa</h2>
+              <p class="item_description"><strong>$25.000</strong></p>
+              <div id="menuActions">
+                <button class="btn deleteBtn">
+                  <i class="fa-solid fa-trash-can" style="color: red"></i>
+                </button>
+                <button class="btn editBtn">
+                  <i class="fa-solid fa-pen" style="color: black"></i>
+                </button>
+              </div>
+            </article>
+          </div>
+          <dialog id="menuDialog" class="container w-50 rounded-3 border-0">
+            <div>
+              <h1 id="modalTitle"></h1>
+            </div>
+            <form id="modalForm" class="row">
+              <div class="formFields">
+                <div class="mb-3 col-12">
+                  <label for="productName" class="form-label fw-bold"
+                    >Nombre del producto</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="productName"
+                    required
+                  />
+                </div>
+                <div class="mb-3 col-12">
+                  <label for="productPrice" class="form-label fw-bold"
+                    >Precio del producto</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="productPrice"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="actions col-12 text-center mt-3">
+                <button
+                  type="button"
+                  id="closeMenuDialog"
+                  class="btn btn-danger"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="button"
+                  id="saveMenuChanges"
+                  class="btn btn-primary"
+                >
+                  Guardar
+                </button>
+              </div>
+            </form>
+          </dialog>
+        </main>
+      </div>
+    </div>
+    <nav class="mobile-bottom-nav">
+      <div class="mobile-nav-menu">
+        <a href="../index.html" class="mobile-nav-item" id="nav-dashboard">
+          <i class="fa-solid fa-chart-line"></i>
+          <span>Resumen</span>
         </a>
-        <a class="btn" href="./orders.html" role="button"><i class="fa-solid fa-bag-shopping"
-            style="color: #8c7d73"></i>
-          Pedidos
+        <a
+          href="./reservations.html"
+          class="mobile-nav-item"
+          id="nav-reservations"
+        >
+          <i class="fa-solid fa-calendar-days"></i>
+          <span>Reservas</span>
         </a>
-        <a class="btn" href="./menu.html" role="button"><i class="fa-solid fa-utensils" style="color: #8c7d73"></i> Menu
+        <a href="./orders.html" class="mobile-nav-item" id="nav-orders">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span>Pedidos</span>
         </a>
-        <button id="logoutBtn" type="button" class="btn">
-          Salir
+        <a href="./menu.html" class="mobile-nav-item" id="nav-menu">
+          <i class="fa-solid fa-utensils"></i>
+          <span>Menú</span>
+        </a>
+        <button class="mobile-nav-item" id="nav-logout">
+          <i class="fa-solid fa-sign-out-alt"></i>
+          <span>Salir</span>
         </button>
       </div>
-    </aside>
-    <div class="principal-container">
-      <nav class="navbar">
-        <h4>Dashboard - Ordexx</h4>
-      </nav>
-      <main>
-        <div class="main-header">
-          <h1 class="main-title">Gestión del menú</h1>
-          <h6 class="main-subtitle">
-            Administra tu menú
-          </h6>
-          <button id="addProduct" class="btn orange-btn">
-            + Añadir plato
-          </button>
-        </div>
-        <div id="menuContainer" class="menu_content">
-          <article class="content_item">
-            <h2 class="item_name">Bandeja Paisa</h2>
-            <p class="item_description"><strong>$25.000</strong></p>
-            <div id="menuActions">
-              <button class="btn deleteBtn">
-                <i class="fa-solid fa-trash-can" style="color: red;"></i>
-              </button>
-              <button class="btn editBtn">
-                <i class="fa-solid fa-pen" style="color: black;"></i>
-              </button>
-            </div>
-          </article>
-        </div>
-        <dialog id="menuDialog" class="container w-50 rounded-3 border-0">
-          <div>
-            <h1 id="modalTitle"></h1>
-          </div>
-          <form id="modalForm" class="row">
-            <div class="formFields">
-              <div class="mb-3 col-12">
-                <label for="productName" class="form-label fw-bold">Nombre del producto</label>
-                <input type="text" class="form-control" id="productName" required>
-              </div>
-              <div class="mb-3 col-12">
-                <label for="productPrice" class="form-label fw-bold">Precio del producto</label>
-                <input type="number" class="form-control" id="productPrice" required>
-              </div>
-            </div>
-            <div class="actions col-12 text-center mt-3">
-              <button type="button" id="closeMenuDialog" class="btn btn-danger">Cancelar</button>
-              <button type="button" id="saveMenuChanges" class="btn btn-primary">Guardar</button>
-            </div>
-          </form>
-        </dialog>
-      </main>
-    </div>
-  </div>
+    </nav>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script type="module" src="../js/menu/menu.js"></script>
-  <script src="../js/guardian.js"></script>
-  <script type="module" src="../js/resTables/restables.js"></script>
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="../js/menu/menu.js"></script>
+    <!-- <script src="../js/guardian.js"></script> -->
+    <script type="module" src="../js/resTables/restables.js"></script>
+  </body>
 </html>

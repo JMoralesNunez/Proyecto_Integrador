@@ -73,7 +73,7 @@ export const summaryLoaders = {
                         <p class="order-card-text">Mesa: ${order.id_table}</p>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-8">
                     <h5>${order.total_price}</h5>
                     <h6>${order.order_date}</h6>
                 </div>
