@@ -109,6 +109,23 @@ export const ordersLoaders = {
           body: JSON.stringify({ status: newStatus })
         });
 
+        if (newStatus === "terminada") {
+          try {
+            const response = await fetch(`${ORDERS_API}${order.id_order}/print`, {
+              method: "POST"
+            });
+
+            if (!response.ok) {
+              throw new Error(`Error al imprimir recibo: ${response.status}`);
+            }
+
+            console.log("Recibo enviado a impresión");
+          } catch (err) {
+            console.error(err.message);
+          }
+        }
+
+
         if (order.id_table) {
           let newAvailability = null;
           if (newStatus === "en proceso") {

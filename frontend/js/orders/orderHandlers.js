@@ -200,10 +200,11 @@ export const orderHandlers = {
         body: JSON.stringify({ total_price: totalOrder })
       });
       Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "No se pudo guardar la orden.",
-      });
+      icon: "success",
+      title: "Éxito",
+      text: "Orden creada con éxito.",
+    });
+
 
       const modalEl = document.getElementById("orderModal");
       const modal = bootstrap.Modal.getInstance(modalEl);

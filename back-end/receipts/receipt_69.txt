@@ -1,0 +1,21 @@
+
+ORDEXX
+------------------------
+Factura #69
+Cliente: No registrado
+Tel: No registrado
+Dirección: Pedido en restaurante
+Fecha: 31/08/2025 12:19 AM
+------------------------
+Producto         Cant  Precio
+Hamburguesa clási…1     $ 15.000
+Hamburguesa clási…1     $ 15.000
+Hamburguesa clási…1     $ 15.000
+Hamburguesa clási…1     $ 15.000
+Hamburguesa clási…1     $ 15.000
+Hamburguesa clási…1     $ 15.000
+Hamburguesa clási…1     $ 15.000
+Hamburguesa clási…1     $ 15.000
+Hamburguesa clási…1     $ 15.000
+------------------------
+Total:                 $ 135.000
