@@ -1,0 +1,14 @@
+
+      ORDEXX
+      ------------------------
+      Factura #54
+      Cliente: No registrado
+      Tel: No registrado
+      Dirección: Pedido en restaurante
+      Fecha: 31/08/2025 04:31 AM
+      ------------------------
+      Producto     Cant  Precio
+      
+      ------------------------
+      Total:            30000
+    
