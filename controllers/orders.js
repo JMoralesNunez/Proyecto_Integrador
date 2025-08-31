@@ -3,6 +3,7 @@ const pool = require("../db");
 const path = require('path');
 const escpos = require("escpos");
 escpos.USB = require("escpos-usb");
+
 exports.getAllOrders = async (req, res) => {
   try {
     const result = await pool.query(`
