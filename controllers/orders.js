@@ -257,7 +257,6 @@ exports.printOrderReceipt = async (req, res) => {
 
     const items = itemsRes.rows;
 
-
     const formatLine = (name, qty, price) => {
       const maxNameLength = 18;
       const paddedName = name.length > maxNameLength
@@ -292,8 +291,16 @@ ${formattedItems}
 Total:                 ${formattedTotal}
 `;
 
-    console.log(layout);
+    console.log("Layout generado:", layout);
 
+    // Si estamos en Vercel -> devolvemos el archivo como descarga
+    if (process.env.VERCEL) {
+      res.setHeader("Content-Type", "text/plain");
+      res.setHeader("Content-Disposition", `attachment; filename=receipt_${order.id_order}.txt`);
+      return res.send(layout);
+    }
+
+    // En local -> intentamos con la impresora
     try {
       const device = new escpos.USB();
       const printer = new escpos.Printer(device);
@@ -301,8 +308,7 @@ Total:                 ${formattedTotal}
         printer.align('CT').text(layout).cut().close();
       });
     } catch (printError) {
-      console.warn("No se encontró impresora USB.");
-
+      console.warn("No se encontró impresora USB. Guardando archivo local...");
       const fs = require("fs");
       const path = require("path");
       const filePath = path.join(__dirname, "../receipts", `receipt_${order.id_order}.txt`);
@@ -310,7 +316,8 @@ Total:                 ${formattedTotal}
       console.log("Recibo simulado guardado en:", filePath);
     }
 
-    res.json({ message: "Recibo generado y enviado a impresión" });
+    res.json({ message: "Recibo generado correctamente" });
+
   } catch (error) {
     console.error("Error al imprimir recibo:", error.message);
     res.status(500).json({ error: "No se pudo imprimir el recibo" });
