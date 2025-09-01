@@ -2,7 +2,7 @@
 
 ## 1. Project Introduction
 
-### Project Name
+### Ordexx
 
 Restaurant Management System — Reservations and Delivery
 
